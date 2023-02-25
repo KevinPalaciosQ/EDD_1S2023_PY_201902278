@@ -5,11 +5,11 @@ import (
 )
 
 type Pila struct {
-	Primero  *nodotiempo
+	First    *nodotiempo
 	Longitud int
 }
 
-func (p *Pila) estaVacia() bool {
+func (p *Pila) estaVaciat() bool {
 	if p.Longitud == 0 {
 		return true
 	} else {
@@ -18,31 +18,31 @@ func (p *Pila) estaVacia() bool {
 }
 
 func (p *Pila) Push(hora string) {
-	if p.estaVacia() {
+	if p.estaVaciat() {
 		nuevoNodo := &nodotiempo{hora, nil}
-		p.Primero = nuevoNodo
+		p.First = nuevoNodo
 		p.Longitud++
 	} else {
-		nuevoNodo := &nodotiempo{hora, p.Primero}
-		p.Primero = nuevoNodo
+		nuevoNodo := &nodotiempo{hora, p.First}
+		p.First = nuevoNodo
 		p.Longitud++
 	}
 }
 
 func (p *Pila) Pop() {
-	if p.estaVacia() {
+	if p.estaVaciat() {
 		fmt.Println("La pila no tiene elementos")
 	} else {
-		p.Primero = p.Primero.siguiente
+		p.First = p.First.next
 		p.Longitud--
 	}
 }
 
 func (p *Pila) Peek() {
-	if p.estaVacia() {
+	if p.estaVaciat() {
 		fmt.Println("La pila no tiene elementos")
 	} else {
-		fmt.Println(p.Primero.hora)
+		fmt.Println(p.First.hora)
 	}
 }
 
@@ -52,11 +52,11 @@ func (p *Pila) Graficar() {
 	texto := "digraph pila{\n"
 	texto += "rankdir=LR;\n"
 	texto += "node[shape = record]"
-	aux := p.Primero
+	aux := p.First
 	texto += "nodo0 [label=\""
 	for i := 0; i < p.Longitud; i++ {
 		texto = texto + "|(" + aux.hora + ")"
-		aux = aux.siguiente
+		aux = aux.next
 	}
 	texto += "\"]; \n}"
 	crearArchivo(nombre_archivo)

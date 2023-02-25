@@ -2,11 +2,17 @@ package main
 
 import (
 	"EDD_Proyecto1_Fase1/estructuras"
+	"encoding/csv"
 	"fmt"
+	"os"
+	"strconv"
+	"time"
 )
 
 var cola = &estructuras.Cola{Primero: nil, Longitud: 0}
 var lista = &estructuras.ListaDoble{Inicio: nil, Final: nil}
+var kola = &estructuras.Kola{First: nil, Longitud: 0}
+var pila = &estructuras.Pila{First: nil, Longitud: 0}
 
 func main() {
 
@@ -133,7 +139,7 @@ func RegistroEstudiante() {
 func MostrarPrimerEstudiante() {
 	//Variables a utilizar en el menú
 	option := 0
-	cola := &estructuras.Cola{Primero: nil, Longitud: 0}
+	//cola := &estructuras.Cola{Primero: nil, Longitud: 0}
 	exit := false
 	for !exit {
 		fmt.Println("************* Listado de Estudiantes*************")
@@ -144,7 +150,9 @@ func MostrarPrimerEstudiante() {
 		switch option {
 		case 1:
 			fmt.Println("Has Elegido la opción 1")
-			cola.MostrarPrimero()
+			fmt.Println("Estudiantes sin ordenar ")
+			//cola.MostrarPrimero()-------------aca no va nada
+			//pila.Graficar()
 			break
 		case 2:
 			fmt.Println("Cerrando Menú...")
@@ -173,6 +181,9 @@ func EstudiantesPendientes() {
 				//Desencola y manda a lista doble
 				lista.AgregarEstudiante(cola.CambioCola().Nombre, cola.CambioCola().Apellido, cola.CambioCola().Carnet, cola.CambioCola().Password)
 				cola.Descolar()
+				kola.Descolart()
+				pila.Push(formato_hora())
+				cola.GraficarEstudiantes()
 				//aca deberian ir los pendientes
 				break
 			case 2:
@@ -204,12 +215,63 @@ func CargaMasiva() {
 		fmt.Print("Elige una Opción: ")
 		switch option {
 		case 1:
-			fmt.Println("Estudiante Aceptado")
+			fmt.Println("Se hizo la carga masiva correctamente")
+			CargaMasivadeArchivos()
 			break
 		case 2:
 			fmt.Println("Cerrando Menú...")
 			exit = true
 			break
 		}
+	}
+}
+
+func formato_hora() string {
+	tiempo := time.Now() // 10:04
+	texto_final := ""
+	if tiempo.Hour() < 10 {
+		texto_final = texto_final + "0" + strconv.Itoa(tiempo.Hour()) + ":"
+	} else {
+		texto_final = texto_final + strconv.Itoa(tiempo.Hour()) + ":"
+	}
+	if tiempo.Minute() < 10 {
+		texto_final = texto_final + "0" + strconv.Itoa(tiempo.Minute()) + ":"
+	} else {
+		texto_final = texto_final + strconv.Itoa(tiempo.Minute()) + ":"
+	}
+	if tiempo.Second() < 10 {
+		texto_final = texto_final + "0" + strconv.Itoa(tiempo.Second())
+	} else {
+		texto_final = texto_final + strconv.Itoa(tiempo.Second())
+	}
+	return texto_final
+}
+func CargaMasivadeArchivos() {
+	fmt.Println("******************************CARGA MASIVA***********")
+	file, eror := os.Open("Estudiantes.csv")
+	if eror != nil {
+		panic(eror)
+	}
+	defer file.Close()
+
+	reader := csv.NewReader(file)
+	reader.Comma = ','
+	reader.FieldsPerRecord = -1
+
+	headers, eror := reader.Read()
+	if eror != nil {
+		panic(eror)
+	}
+	fmt.Println("Se han cargado correctamente con formato:", headers)
+	for {
+		record, eror := reader.Read()
+		if eror != nil {
+			break
+		}
+		val_carnet, eror := strconv.Atoi(record[0])
+		if eror != nil {
+			print(eror)
+		}
+		cola.Encolar(record[1], "", val_carnet, record[2])
 	}
 }

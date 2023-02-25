@@ -2,6 +2,7 @@ package estructuras
 
 import (
 	"fmt"
+	"strconv"
 )
 
 type Cola struct {
@@ -60,4 +61,29 @@ func (c *Cola) CambioCola() *Nodo_estudiante {
 	} else {
 		return c.Primero.nodo_estudiante
 	}
+}
+
+func (c *Cola) GraficarEstudiantes() {
+	nombre_archivo := "./cola.dot"
+	nombre_imagen := "cola.jpg"
+	texto := "digraph cola{\n"
+	texto += "rankdir=LR;\n"
+	texto += "node[shape = record];\n"
+	texto += "nodonull2[label=\"null\"];\n"
+	aux := c.Primero
+	contador := 0
+	for i := 0; i < c.Longitud; i++ {
+		texto = texto + "nodo" + strconv.Itoa(i) + "[label=\"{" + strconv.Itoa(aux.nodo_estudiante.Carnet) + "\\n" + aux.nodo_estudiante.Nombre + "}\"];\n"
+		aux = aux.siguiente
+	}
+	for i := 0; i < c.Longitud-1; i++ {
+		c := i + 1
+		texto += "nodo" + strconv.Itoa(i) + "->nodo" + strconv.Itoa(c) + ";\n"
+		contador = c
+	}
+	texto += "nodo" + strconv.Itoa(contador) + "->nodonull2;\n"
+	texto += "}"
+	crearArchivo(nombre_archivo)
+	escribirArchivoDot(texto, nombre_archivo)
+	ejecutar(nombre_imagen, nombre_archivo)
 }

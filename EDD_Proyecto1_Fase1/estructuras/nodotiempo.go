@@ -1,6 +1,6 @@
 package estructuras
 
 type nodotiempo struct {
-	hora      string
-	siguiente *nodotiempo
+	hora string
+	next *nodotiempo
 }
