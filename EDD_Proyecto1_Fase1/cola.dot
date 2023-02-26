@@ -3,9 +3,8 @@ rankdir=LR;
 node[shape = record];
 nodonull2[label="null"];
 nodo0->nodonull2;
-}3877\nEbany Larios}"];
-nodo0->nodonull2;
-}201403877\nEbany Larios}"];
+}0044\nLeonardo Martinez}"];
+nodo1[label="{201403877\nEbany Larios}"];
 nodo0->nodo1;
 nodo1->nodonull2;
 }

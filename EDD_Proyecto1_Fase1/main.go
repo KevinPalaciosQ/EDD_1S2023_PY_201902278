@@ -9,10 +9,10 @@ import (
 	"time"
 )
 
-var cola = &estructuras.Cola{Primero: nil, Longitud: 0}
-var lista = &estructuras.ListaDoble{Inicio: nil, Final: nil}
-var cola_ = &estructuras.Cola_{Primero_: nil, Longitud: 0}
-var pila = &estructuras.Pila{Primero_: nil, Longitud: 0}
+var cola *estructuras.Cola = &estructuras.Cola{Primero: nil, Longitud: 0}
+var lista *estructuras.ListaDoble = &estructuras.ListaDoble{Inicio: nil, Final: nil}
+var cola_ *estructuras.Cola_ = &estructuras.Cola_{Primero_: nil, Longitud: 0}
+var pila *estructuras.Pila = &estructuras.Pila{Primero_: nil, Longitud: 0}
 
 //var kola = &estructuras.Kola{First: nil, Longitud: 0}
 //var pila = &estructuras.Pila{First: nil, Longitud: 0}
@@ -45,8 +45,8 @@ func main() {
 				fmt.Println("Se inició Correctamente")
 				//Println("entró con éxito")
 				main2()
-				pila.Pop()
-				pila.Graficar()
+				//pila.Push(formato_hora())
+				//pila.Graficar()
 
 			} else {
 				fmt.Println("Error en Credenciales")
@@ -83,6 +83,7 @@ func main2() {
 			break
 		case 2:
 			fmt.Println("Has Elegido la opción 2")
+
 			MostrarPrimerEstudiante()
 			break
 		case 3:
@@ -157,7 +158,9 @@ func MostrarPrimerEstudiante() {
 		case 1:
 			fmt.Println("Has Elegido la opción 1")
 			fmt.Println("Estudiantes sin ordenar ")
+			//ACA DEBEN DE IR ESTUDIANTES ORDENADOS----------------------------------------------------------------------
 			//cola.MostrarPrimero()-------------aca no va nada
+
 			//pila.Graficar()
 			break
 		case 2:
@@ -187,7 +190,8 @@ func EstudiantesPendientes() {
 				//Desencola y manda a lista doble
 				lista.AgregarEstudiante(cola.CambioCola().Nombre, cola.CambioCola().Apellido, cola.CambioCola().Carnet, cola.CambioCola().Password)
 				cola.Descolar()
-				cola_.Descolart()
+				pila.Push("Se Aceptó a Estudiante " + formato_hora())
+				pila.Graficar()
 				//kola.Descolart()
 				//pila.Push(formato_hora())
 				cola.GraficarEstudiantes()
@@ -196,7 +200,9 @@ func EstudiantesPendientes() {
 			case 2:
 				fmt.Println("Estudiante Rechazado")
 				//Aca deberían ir los estudiantes Rechazados
-				cola_.Encolart(formato_hora())
+				cola.Descolar()
+				pila.Push("Se Rechazó a Estudiante " + formato_hora())
+
 				break
 			case 3:
 				fmt.Println("Cerrando Menú...")
@@ -235,24 +241,14 @@ func CargaMasiva() {
 }
 
 func formato_hora() string {
-	tiempo := time.Now() // 10:04
-	texto_final := ""
-	if tiempo.Hour() < 10 {
-		texto_final = texto_final + "0" + strconv.Itoa(tiempo.Hour()) + ":"
-	} else {
-		texto_final = texto_final + strconv.Itoa(tiempo.Hour()) + ":"
-	}
-	if tiempo.Minute() < 10 {
-		texto_final = texto_final + "0" + strconv.Itoa(tiempo.Minute()) + ":"
-	} else {
-		texto_final = texto_final + strconv.Itoa(tiempo.Minute()) + ":"
-	}
-	if tiempo.Second() < 10 {
-		texto_final = texto_final + "0" + strconv.Itoa(tiempo.Second())
-	} else {
-		texto_final = texto_final + strconv.Itoa(tiempo.Second())
-	}
+	tiempo := time.Now()
+	texto_final := fmt.Sprintf("%d/%02d/%02d %02d:%02d:%02d",
+
+		tiempo.Day(), tiempo.Month(), tiempo.Year(),
+		tiempo.Hour(), tiempo.Minute(), tiempo.Second())
+
 	return texto_final
+
 }
 func CargaMasivadeArchivos() {
 	fmt.Println("******************************CARGA MASIVA***********")

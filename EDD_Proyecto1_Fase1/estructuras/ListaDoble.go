@@ -59,6 +59,17 @@ func (l *ListaDoble) MostrarLista() {
 }
 
 //Funcion para el ordenamiento de la lista
-func (l *ListaDoble) OrdenarEstudiantes() {
+func (l *ListaDoble) OrdenarEstudiantes(listado [10]int) {
+	lista := listado
 
+	for i := 0; i < len(lista); i++ {
+		for j := 0; j < len(lista)-1; j++ {
+			if lista[j] > lista[j+1] {
+				temp := lista[j]
+				lista[j] = lista[j+1]
+				lista[j+1] = temp
+			}
+		}
+	}
+	fmt.Println("Lista de numeros ordenados: ", lista)
 }
