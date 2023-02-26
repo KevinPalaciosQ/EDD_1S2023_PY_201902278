@@ -11,8 +11,11 @@ import (
 
 var cola = &estructuras.Cola{Primero: nil, Longitud: 0}
 var lista = &estructuras.ListaDoble{Inicio: nil, Final: nil}
-var kola = &estructuras.Kola{First: nil, Longitud: 0}
-var pila = &estructuras.Pila{First: nil, Longitud: 0}
+var cola_ = &estructuras.Cola_{Primero_: nil, Longitud: 0}
+var pila = &estructuras.Pila{Primero_: nil, Longitud: 0}
+
+//var kola = &estructuras.Kola{First: nil, Longitud: 0}
+//var pila = &estructuras.Pila{First: nil, Longitud: 0}
 
 func main() {
 
@@ -42,6 +45,8 @@ func main() {
 				fmt.Println("Se inició Correctamente")
 				//Println("entró con éxito")
 				main2()
+				pila.Pop()
+				pila.Graficar()
 
 			} else {
 				fmt.Println("Error en Credenciales")
@@ -89,6 +94,7 @@ func main2() {
 		case 5:
 			fmt.Println("Has Elegido la opción 5")
 			lista.MostrarLista()
+			cola_.Graficar()
 			break
 		case 6:
 			fmt.Println("Cerrando Sesión...")
@@ -181,14 +187,16 @@ func EstudiantesPendientes() {
 				//Desencola y manda a lista doble
 				lista.AgregarEstudiante(cola.CambioCola().Nombre, cola.CambioCola().Apellido, cola.CambioCola().Carnet, cola.CambioCola().Password)
 				cola.Descolar()
-				kola.Descolart()
-				pila.Push(formato_hora())
+				cola_.Descolart()
+				//kola.Descolart()
+				//pila.Push(formato_hora())
 				cola.GraficarEstudiantes()
 				//aca deberian ir los pendientes
 				break
 			case 2:
 				fmt.Println("Estudiante Rechazado")
 				//Aca deberían ir los estudiantes Rechazados
+				cola_.Encolart(formato_hora())
 				break
 			case 3:
 				fmt.Println("Cerrando Menú...")

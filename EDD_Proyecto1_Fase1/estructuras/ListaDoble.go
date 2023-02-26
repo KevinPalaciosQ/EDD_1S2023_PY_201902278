@@ -53,7 +53,12 @@ func (l *ListaDoble) AgregarEstudiante(nombre string, apellido string, carnet in
 func (l *ListaDoble) MostrarLista() {
 	aux := l.Inicio
 	for aux != nil {
-		fmt.Printf("Nombre: %s, Apellido: %s, Carnet: %d, Contraseña: %s\n", aux.nestudiante.Nombre, aux.nestudiante.Apellido, aux.nestudiante.Carnet, aux.nestudiante.Password)
+		fmt.Printf("Nombre: %s, Carnet:%d \n", aux.nestudiante.Nombre+aux.nestudiante.Apellido, aux.nestudiante.Carnet)
 		aux = aux.siguiente
 	}
+}
+
+//Funcion para el ordenamiento de la lista
+func (l *ListaDoble) OrdenarEstudiantes() {
+
 }
