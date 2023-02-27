@@ -14,9 +14,7 @@ var lista *estructuras.ListaDoble = &estructuras.ListaDoble{Inicio: nil, Final: 
 var cola_ *estructuras.Cola_ = &estructuras.Cola_{Primero_: nil, Longitud: 0}
 var pila *estructuras.Pila = &estructuras.Pila{Primero_: nil, Longitud: 0}
 
-//var kola = &estructuras.Kola{First: nil, Longitud: 0}
-//var pila = &estructuras.Pila{First: nil, Longitud: 0}
-
+// -------------------------------MENU PRINCIPAL DEL PROGRAMA---------------------------------------------------------------------------
 func main() {
 
 	//Variables a utilizar en el menú
@@ -47,9 +45,12 @@ func main() {
 				main2()
 				//pila.Push(formato_hora())
 				//pila.Graficar()
+			} else if usuario == "admin" && contrasenia != "admin" {
+				fmt.Println("Contraseña Incorrecta")
 
-			} else {
-				fmt.Println("Error en Credenciales")
+			} else if usuario != "admin" {
+				fmt.Println("Serás dirigido al Dashbord de Estudiantes")
+				LoginEstudiante()
 			}
 			break
 		case 2:
@@ -60,6 +61,8 @@ func main() {
 		}
 	}
 }
+
+// --------------------------------------------------LOGIN DE ADMINISTRADOR--------------------------------------------------------------
 func main2() {
 	//Variables a utilizar en el menú
 	option := 0
@@ -104,6 +107,8 @@ func main2() {
 		}
 	}
 }
+
+// -----------------------------------MENU PARA REGISTRAR ESTUDIANTES A MANITA-----------------------------------------------------------
 func RegistroEstudiante() {
 	//Variables a utilizar en el menú
 	var (
@@ -113,7 +118,6 @@ func RegistroEstudiante() {
 		password string
 	)
 	option := 0
-	//cola := &estructuras.Cola{Primero: nil, Longitud: 0}
 	exit := false
 	for !exit {
 		fmt.Println("************* Registro de Estudiantes - EDD GoDrive*************")
@@ -143,6 +147,7 @@ func RegistroEstudiante() {
 	}
 }
 
+// -------------------------------------------------MENU QUE MUESTRA ESTUDIANTES ORDENADOS-----------------------------------------------
 func MostrarPrimerEstudiante() {
 	//Variables a utilizar en el menú
 	option := 0
@@ -171,13 +176,14 @@ func MostrarPrimerEstudiante() {
 	}
 }
 
+// ----------------------------------------------------------ESTUDIANTES PENDIENTES A INGRESAR AL SISTEMA-----------------------------------------
 func EstudiantesPendientes() {
 	//Variables a utilizar en el menú
 	option := 0
 	exit := false
+	//contenido := estructuras.ArchivoJSON(lista)
 	for !exit {
 		if cola.Longitud != 0 {
-			//Acá van los Estudiantes Pendientes
 			cola.MostrarPrimero()
 			fmt.Println("*       1. Aceptar al Estudiante")
 			fmt.Println("*       2. Rechazar al Estudiante")
@@ -192,14 +198,15 @@ func EstudiantesPendientes() {
 				cola.Descolar()
 				pila.Push("Se Aceptó a Estudiante " + formato_hora())
 				pila.Graficar()
-				//kola.Descolart()
-				//pila.Push(formato_hora())
+				estructuras.Generarjson(lista)
+				//estructuras.CrearArchivo()
+				//estructuras.EscribirArchivo(contenido)
+
 				cola.GraficarEstudiantes()
-				//aca deberian ir los pendientes
 				break
 			case 2:
 				fmt.Println("Estudiante Rechazado")
-				//Aca deberían ir los estudiantes Rechazados
+				//Descola-Elimina estudiantes y genera reporte
 				cola.Descolar()
 				pila.Push("Se Rechazó a Estudiante " + formato_hora())
 
@@ -216,6 +223,8 @@ func EstudiantesPendientes() {
 	}
 
 }
+
+// -----------------------------------------------MENU PARA LA CARGA MASIVA----------------------------------------------------------------
 func CargaMasiva() {
 	//Variables a utilizar en el menú
 	option := 0
@@ -240,6 +249,7 @@ func CargaMasiva() {
 	}
 }
 
+// -------------------------------------METODO PARA OBTENER LA FECHA Y HORA---------------------------------------------------------------------
 func formato_hora() string {
 	tiempo := time.Now()
 	texto_final := fmt.Sprintf("%d/%02d/%02d %02d:%02d:%02d",
@@ -250,6 +260,8 @@ func formato_hora() string {
 	return texto_final
 
 }
+
+// ------------------------------------------CARGA DE ESTUDIANTES------------------------------------------------------------------------
 func CargaMasivadeArchivos() {
 	fmt.Println("******************************CARGA MASIVA***********")
 	file, eror := os.Open("Estudiantes.csv")
@@ -277,5 +289,27 @@ func CargaMasivadeArchivos() {
 			print(eror)
 		}
 		cola.Encolar(record[1], "", val_carnet, record[2])
+	}
+}
+
+// ------------------------------------------------MENU LOGIN DE ESTUDIANTES-----------------------------------------------------------------
+func LoginEstudiante() {
+	option := 0
+	exit1 := false
+	for !exit1 {
+		fmt.Println("************* Dashboard Estudiantes - EDD GoDrive*************")
+		fmt.Println("*		 1. Iniciar Sesión                               *")
+		fmt.Println("*		 2. Cerrar Menú                                  *")
+		fmt.Scan(&option)
+		fmt.Print("Elige una Opción: ")
+		switch option {
+		case 1:
+
+			break
+		case 2:
+			fmt.Println("Cerrando Menú...")
+			exit1 = true
+			break
+		}
 	}
 }

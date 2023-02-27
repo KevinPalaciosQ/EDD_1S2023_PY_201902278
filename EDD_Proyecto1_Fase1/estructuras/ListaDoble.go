@@ -1,6 +1,9 @@
 package estructuras
 
-import "fmt"
+import (
+	"fmt"
+	"strconv"
+)
 
 // Estructura de una Lista Doblemente Enlazada
 type ListaDoble struct {
@@ -58,7 +61,7 @@ func (l *ListaDoble) MostrarLista() {
 	}
 }
 
-//Funcion para el ordenamiento de la lista
+// Funcion para el ordenamiento de la lista
 func (l *ListaDoble) OrdenarEstudiantes(listado [10]int) {
 	lista := listado
 
@@ -72,4 +75,32 @@ func (l *ListaDoble) OrdenarEstudiantes(listado [10]int) {
 		}
 	}
 	fmt.Println("Lista de numeros ordenados: ", lista)
+}
+func ArchivoJSON(l *ListaDoble) string {
+	contenido := "{\n"
+	contenido += "\t\"alumnos\": [\n"
+	aux := l.Inicio
+	for aux.siguiente != nil {
+		contenido += "\t\t{\n"
+		contenido += "\t\t\t\"nombre\": \"" + (aux.nestudiante.Nombre) + "\", \n"
+		contenido += "\t\t\t\"carnet\": " + strconv.Itoa(aux.nestudiante.Carnet) + ", \n"
+		contenido += "\t\t\t\"password\": \"" + (aux.nestudiante.Password) + "\", \n"
+		contenido += "\t\t\t\"Carpeta_Raiz\": \"/\" \n"
+		contenido += "\t\t},\n"
+		aux = aux.siguiente
+	}
+	//esto es para el ultimo elemento
+	contenido += "\t\t{\n"
+	contenido += "\t\t\t\"nombre\": \"" + (aux.nestudiante.Nombre) + "\", \n"
+	contenido += "\t\t\t\"carnet\": " + strconv.Itoa(aux.nestudiante.Carnet) + ", \n"
+	contenido += "\t\t\t\"password\": \"" + (aux.nestudiante.Password) + "\", \n"
+	contenido += "\t\t\t\"Carpeta_Raiz\": \"/\" \n"
+	contenido += "\t\t}\n"
+	contenido += "\t]\n"
+	contenido += "}"
+	return contenido
+}
+func Generarjson(l *ListaDoble) {
+	CrearArchivo()
+	EscribirArchivo(ArchivoJSON(l))
 }
