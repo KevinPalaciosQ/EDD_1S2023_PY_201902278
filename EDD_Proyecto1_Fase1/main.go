@@ -71,10 +71,10 @@ func main2() {
 	for !exit1 {
 		fmt.Println("************* Dashboard Administrador - EDD GoDrive*************")
 		fmt.Println("*		 1. Ver Estudiantes Pendientes                 *")
-		fmt.Println("*		 2. Ver Estudiantes del Sistema                *")
+		fmt.Println("*		 2. Ver Estudiantes del Sistema Ordenado       *")
 		fmt.Println("*		 3. Registrar Nuevo Estudiante                 *")
 		fmt.Println("*		 4. Carga Masiva de Estudiantes                *")
-		fmt.Println("*		 5. Listado de Estudiantes                     *")
+		fmt.Println("*		 5. Listado de Estudiantes Desordendo          *")
 		fmt.Println("*		 6. Cerrar Sesión                              *")
 		fmt.Println("****************************************************************")
 		fmt.Print("Elige una Opción: ")
@@ -162,10 +162,11 @@ func MostrarPrimerEstudiante() {
 		switch option {
 		case 1:
 			fmt.Println("Has Elegido la opción 1")
-			fmt.Println("Estudiantes sin ordenar ")
+			fmt.Println("Estudiantes Ordenados ")
+			lista.OrdenamientoInsercion()
+			lista.MostrarLista()
 			//ACA DEBEN DE IR ESTUDIANTES ORDENADOS----------------------------------------------------------------------
 			//cola.MostrarPrimero()-------------aca no va nada
-
 			//pila.Graficar()
 			break
 		case 2:

@@ -76,6 +76,19 @@ func (l *ListaDoble) OrdenarEstudiantes(listado [10]int) {
 	}
 	fmt.Println("Lista de numeros ordenados: ", lista)
 }
+func (l *ListaDoble) OrdenamientoInsercion() {
+	if l.Longitud > 1 {
+		i := l.Inicio.siguiente
+		for i != nil {
+			j := i
+			for j.anterior != nil && j.nestudiante.Carnet < j.anterior.nestudiante.Carnet {
+				j.nestudiante, j.anterior.nestudiante = j.anterior.nestudiante, j.nestudiante
+				j = j.anterior
+			}
+			i = i.siguiente
+		}
+	}
+}
 func ArchivoJSON(l *ListaDoble) string {
 	contenido := "{\n"
 	contenido += "\t\"alumnos\": [\n"
