@@ -1,6 +1,4 @@
-\begin{center}
-MANUAL TÉCNICO
-\end{center}
+# MANUAL TÉCNICO
 ![golang pet](https://user-images.githubusercontent.com/95326781/221983369-30b90501-59af-4198-9af9-6fa180121b93.png)
 ---
 ## Proyecto 1 - Fase 1
@@ -118,6 +116,17 @@ type Cola struct {
 }
 
 ```
+### Funciones de la Lista Simple
+```
+estaVacia()
+Encolar()
+Descolar()
+MostrarPrimero()
+GraficarEstudiantes()
+	crearArchivo()
+	escribirArchivoDot()
+	ejecutar()
+```
 ## Nodo_estudiante
 ```
 type Nodo_estudiante struct {
@@ -160,6 +169,14 @@ type Pila struct {
 	Longitud int
 }
 ```
+### Funciones de Pila Tiempo
+```
+estaVaciap()
+Push()
+Pop()
+Peek()
+Graficar()
+```
 ## ListaDoble
 ### Estructura de una Lista Doblemente Enlazada
 ```
@@ -168,4 +185,17 @@ type ListaDoble struct {
 	Final    *NodoDoble
 	Longitud int
 }
+```
+### Funciones de la ListaDoble
+```
+estaVacia()
+newNodo()
+AgregarEstudiante()
+MostrarLista()
+OrdenamientoInsercion()
+ArchivoJSON()
+GraficarListaDoblee()
+crearArchivo()
+escribirArchivoDot()
+ejecutar()
 ```
