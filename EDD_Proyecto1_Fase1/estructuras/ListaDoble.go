@@ -1,6 +1,7 @@
 package estructuras
 
 import (
+	"bytes"
 	"fmt"
 	"strconv"
 )
@@ -116,4 +117,86 @@ func ArchivoJSON(l *ListaDoble) string {
 func Generarjson(l *ListaDoble) {
 	CrearArchivo()
 	EscribirArchivo(ArchivoJSON(l))
+}
+func (l *ListaDoble) GraficarListaDoble() {
+	var a bytes.Buffer
+	nombre_archivo := "./ListaDoble.dot"
+	nombre_imagen := "ListaDoble.jpg"
+	texto := "digraph pila{\n"
+	texto += "rankdir=LR;\n"
+	texto += "node[shape = record]"
+	aux := l.Inicio
+	for aux != nil {
+		a.WriteString(fmt.Sprintf("\"%p\"[label=\"{<prev>|%v|<next>}\"]\n", aux, aux.nestudiante.Nombre))
+		if aux.siguiente != nil {
+			a.WriteString(fmt.Sprintf("\"%p\":next  -> \"%p\":prev\n", aux, &aux.nestudiante.Nombre))
+		}
+		aux = aux.siguiente
+	}
+	texto += ("}\n")
+	crearArchivo(nombre_archivo)
+	escribirArchivoDot(texto, nombre_archivo)
+	ejecutar(nombre_imagen, nombre_archivo)
+}
+
+/*
+	func (l *ListaDoble)GraficaListaDoble(){
+		temporal :=l.Inicio
+		//codigodot :="digraph G{\ngraph[pad=0.5,nodesep=1,ranksep=1,shape=box,fillcolor=deeppink3];\nnode[shape=box, fillcolor=deeppink3,color=darkred]\nfontsize=28;\nede[dir=]"}
+		nodos := ""
+		conexiones:= ""
+		numnodo:=0
+		contador:=0
+		nombre_archivo := "./ListaDoble.dot"
+		nombre_imagen := "ListaDoble.jpg"
+		direccion:= "\n{rank=same; "
+		if l.Longitud<5{
+			for contador !=l.Longitud{
+				nodos += fmt.Sprintf("Nodo%d[label =\" %s\\n %s \"];\n",numnodo,strconv.Itoa(temporal.nestudiante.Carnet),temporal.nestudiante.Apellido)
+				direccion += fmt.Sprintf("Nodo%d;",numnodo)
+				temporal=temporal.siguiente
+				contador++
+				numnodo++
+			}
+			direccion+="}\n"
+			contador=0
+			numnodo=0
+			for contador !=l.Longitud-1{
+				numaux:= numnodo+1
+				conexiones+= fmt.Sprintf("",numnodo,numaux)
+				numnodo++
+				numaux++
+
+			}
+		}
+	}
+*/
+func (l *ListaDoble) GraficarListaDoblee() {
+	nombre_archivo := "./ListaDoble.dot"
+	nombre_imagen := "ListaDoble.jpg"
+	texto := "digraph listadoble{\n"
+	texto += "rankdir=LR;\n"
+	texto += "node[shape = record, style=filled, color=skyblue, fontname=\"Century Gothic\"];\n"
+	texto += "nodonull1[label=\"null\"];\n"
+	texto += "nodonull2[label=\"null\"];\n"
+	aux := l.Inicio
+	contador := 0
+	for i := 0; i < l.Longitud; i++ {
+		texto = texto + "nodo" + strconv.Itoa(i) + "[label=\"{" + aux.nestudiante.Nombre + "  " + aux.nestudiante.Apellido + "  " + strconv.Itoa(aux.nestudiante.Carnet) + "}\"];\n"
+		aux = aux.siguiente
+	}
+	for i := 0; i < l.Longitud-1; i++ {
+		l := i + 1
+		if i == 0 {
+			texto += "nodonull1->" + "nodo" + strconv.Itoa(i) + ";\n"
+		}
+		texto += "nodo" + strconv.Itoa(i) + "->nodo" + strconv.Itoa(l) + ";\n"
+		texto += "nodo" + strconv.Itoa(l) + "->nodo" + strconv.Itoa(i) + ";\n"
+		contador = l
+	}
+	texto += "nodo" + strconv.Itoa(contador) + "->nodonull2;\n"
+	texto += "}"
+	crearArchivo(nombre_archivo)
+	escribirArchivoDot(texto, nombre_archivo)
+	ejecutar(nombre_imagen, nombre_archivo)
 }

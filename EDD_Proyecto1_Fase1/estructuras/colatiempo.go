@@ -52,7 +52,7 @@ func (c_ *Cola_) Graficar() {
 	nombre_imagen := "cola.jpg"
 	texto := "digraph cola{\n"
 	texto += "rankdir=LR;\n"
-	texto += "node[shape = record];\n"
+	texto += "node[shape = record, style=filled, color=pink, fontname=\"Century Gothic\"];\n"
 	texto += "nodonull2[label=\"null\"];\n"
 	aux := c_.Primero_
 	contador := 0

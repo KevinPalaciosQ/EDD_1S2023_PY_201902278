@@ -40,7 +40,7 @@ func main() {
 			fmt.Scan(&contrasenia)
 			fmt.Print("")
 			if usuario == "admin" && contrasenia == "admin" {
-				fmt.Println("Se inició Correctamente")
+				fmt.Println("Bienvenido Administrador")
 				//Println("entró con éxito")
 				main2()
 				//pila.Push(formato_hora())
@@ -155,7 +155,7 @@ func MostrarPrimerEstudiante() {
 	exit := false
 	for !exit {
 		fmt.Println("************* Listado de Estudiantes*************")
-		fmt.Println("1. Mostrar un Estudiante")
+		fmt.Println("1. Mostrar Estudiantes")
 		fmt.Println("2. Regresar")
 		fmt.Scan(&option)
 		fmt.Print("Elige una Opción: ")
@@ -165,6 +165,8 @@ func MostrarPrimerEstudiante() {
 			fmt.Println("Estudiantes Ordenados ")
 			lista.OrdenamientoInsercion()
 			lista.MostrarLista()
+			lista.GraficarListaDoblee()
+			//lista.GraficarListaDoble()
 			//ACA DEBEN DE IR ESTUDIANTES ORDENADOS----------------------------------------------------------------------
 			//cola.MostrarPrimero()-------------aca no va nada
 			//pila.Graficar()
@@ -197,7 +199,8 @@ func EstudiantesPendientes() {
 				//Desencola y manda a lista doble
 				lista.AgregarEstudiante(cola.CambioCola().Nombre, cola.CambioCola().Apellido, cola.CambioCola().Carnet, cola.CambioCola().Password)
 				cola.Descolar()
-				pila.Push("Se Aceptó a Estudiante " + formato_hora())
+				pila.Push("Se Aceptó a Estudiante: " + formato_hora())
+
 				pila.Graficar()
 				estructuras.Generarjson(lista)
 				//estructuras.CrearArchivo()
@@ -264,7 +267,7 @@ func formato_hora() string {
 
 // ------------------------------------------CARGA DE ESTUDIANTES------------------------------------------------------------------------
 func CargaMasivadeArchivos() {
-	fmt.Println("******************************CARGA MASIVA***********")
+	fmt.Println("***********************************CARGA MASIVA*********************")
 	file, eror := os.Open("Estudiantes.csv")
 	if eror != nil {
 		panic(eror)

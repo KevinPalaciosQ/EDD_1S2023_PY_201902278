@@ -1,22 +1,22 @@
 digraph cola{
 rankdir=LR;
-node[shape = record];
+node[shape = record, style=filled, color=pink, fontname="Century Gothic"];
 nodonull2[label="null"];
 nodo0->nodonull2;
-}}"];
-nodo0->nodonull2;
 }
-}koto}"];
+}o}"];
+nodo0->nodonull2;
+}}"];
 nodo0->nodo1;
 nodo1->nodonull2;
-}>nodo1;
+}os}"];
+nodo0->nodo1;
+nodo1->nodonull2;
+}an Suy}"];
+nodo3[label="{201780044\nLeonardo Martinez}"];
+nodo4[label="{201403877\nEbany Larios}"];
+nodo0->nodo1;
 nodo1->nodo2;
-nodo2->nodonull2;
-}}->nodo1;
-nodo1->nodo2;
-nodo2->nodo3;
-nodo3->nodonull2;
-}nodo1->nodo2;
 nodo2->nodo3;
 nodo3->nodo4;
 nodo4->nodonull2;

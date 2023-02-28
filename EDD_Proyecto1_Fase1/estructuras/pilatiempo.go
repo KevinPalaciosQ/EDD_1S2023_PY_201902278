@@ -51,7 +51,7 @@ func (p *Pila) Graficar() {
 	nombre_imagen := "pila.jpg"
 	texto := "digraph pila{\n"
 	texto += "rankdir=LR;\n"
-	texto += "node[shape = record]"
+	texto += "node[shape = record, color=purple, fontname=\"Century Gothic\"]"
 	aux := p.Primero_
 	texto += "nodo0 [label=\""
 	for i := 0; i < p.Longitud; i++ {

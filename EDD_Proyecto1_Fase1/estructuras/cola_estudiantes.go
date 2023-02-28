@@ -68,7 +68,7 @@ func (c *Cola) GraficarEstudiantes() {
 	nombre_imagen := "cola.jpg"
 	texto := "digraph cola{\n"
 	texto += "rankdir=LR;\n"
-	texto += "node[shape = record];\n"
+	texto += "node[shape = record, style=filled, color=yellow, fontname=\"Century Gothic\"];\n"
 	texto += "nodonull2[label=\"null\"];\n"
 	aux := c.Primero
 	contador := 0

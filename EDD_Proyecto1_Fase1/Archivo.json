@@ -1,45 +1,21 @@
 {
 	"alumnos": [
 		{
-			"nombre": "rodri", 
+			"nombre": "Ebany Larios", 
+			"carnet": 201403877, 
+			"password": "qwerty12", 
+			"Carpeta_Raiz": "/" 
+		},
+		{
+			"nombre": "yo", 
 			"carnet": 1, 
 			"password": "1", 
 			"Carpeta_Raiz": "/" 
 		},
 		{
-			"nombre": "piter", 
-			"carnet": 5, 
-			"password": "5", 
-			"Carpeta_Raiz": "/" 
-		},
-		{
-			"nombre": "koto", 
-			"carnet": 5, 
-			"password": "5", 
-			"Carpeta_Raiz": "/" 
-		},
-		{
-			"nombre": "kevin", 
+			"nombre": "io", 
 			"carnet": 10, 
 			"password": "10", 
-			"Carpeta_Raiz": "/" 
-		},
-		{
-			"nombre": "a", 
-			"carnet": 20, 
-			"password": "20", 
-			"Carpeta_Raiz": "/" 
-		},
-		{
-			"nombre": "yolo", 
-			"carnet": 1000, 
-			"password": "1", 
-			"Carpeta_Raiz": "/" 
-		},
-		{
-			"nombre": "dos", 
-			"carnet": 2, 
-			"password": "2", 
 			"Carpeta_Raiz": "/" 
 		}
 	]
