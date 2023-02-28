@@ -108,5 +108,62 @@ func Generarjson(l *ListaDoble) {
 }
 ```
 5.2 Estructuras de Datos
+## Cola Estudiantes/Lista Simple
 ```
+type Cola struct {
+	Primero  *Nodo_pilas
+	Longitud int
+}
+
+```
+## Nodo_estudiante
+```
+type Nodo_estudiante struct {
+	Nombre   string
+	Apellido string
+	Carnet   int
+	Password string
+}
+```
+## Nodo_Pilas
+### Encargado de conectar estudiantes y pilas.
+```
+type Nodo_pilas struct {
+	nodo_estudiante *Nodo_estudiante
+	siguiente       *Nodo_pilas
+}
+```
+## NodoDoble
+### Encargado de conectar la Lista Doble con un nodo Doble.
+```
+type NodoDoble struct {
+	nestudiante *Nodo_estudiante
+	anterior    *NodoDoble
+	siguiente   *NodoDoble
+}
+```
+## NodoTiempo
+### Encargado de guardar la fecha y hora de la pila tiempo.
+```
+type nodotiempo struct {
+	hora       string
+	siguiente_ *nodotiempo
+}
+```
+## Pila tiempo
+### Estructura de una pila.
+```
+type Pila struct {
+	Primero_ *nodotiempo
+	Longitud int
+}
+```
+## ListaDoble
+### Estructura de una Lista Doblemente Enlazada
+```
+type ListaDoble struct {
+	Inicio   *NodoDoble
+	Final    *NodoDoble
+	Longitud int
+}
 ```
