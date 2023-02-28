@@ -26,7 +26,7 @@ El manual va dirigido a distintos programadores interesados en el conocimiento d
 ---
 5. Lógica de la Aplicación
 1.1 Funciones de la Aplicación
-### formato_hora()
+### U+1F534  formato_hora()
 ```
 func formato_hora() string {
 	tiempo := time.Now()
