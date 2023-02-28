@@ -1,4 +1,4 @@
-# MANUAL TÉCNICO 
+#  <center>MANUAL TÉCNICO </center> 
 ![golang pet](https://user-images.githubusercontent.com/95326781/221983369-30b90501-59af-4198-9af9-6fa180121b93.png)
 ---
 ## Proyecto 1 - Fase 1
