@@ -26,4 +26,16 @@ El manual va dirigido a distintos programadores interesados en el conocimiento d
 ---
 5. Lógica de la Aplicación
 1.1 Funciones de la Aplicación
+### formato_hora()
+```
+func formato_hora() string {
+	tiempo := time.Now()
+	texto_final := fmt.Sprintf("%d/%02d/%02d %02d:%02d:%02d",
 
+		tiempo.Day(), tiempo.Month(), tiempo.Year(),
+		tiempo.Hour(), tiempo.Minute(), tiempo.Second())
+
+	return texto_final
+
+}
+```
