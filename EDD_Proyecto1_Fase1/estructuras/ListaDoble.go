@@ -1,7 +1,6 @@
 package estructuras
 
 import (
-	"bytes"
 	"fmt"
 	"strconv"
 )
@@ -29,8 +28,6 @@ func (l *ListaDoble) newNodo(nestudiante *Nodo_estudiante) *NodoDoble {
 	}
 }
 
-// Funcion AgregarEmpleado que se puede exportar (es decir es publica)
-// Esta funcion es para la Lista Doblemente Enlazada
 func (l *ListaDoble) AgregarEstudiante(nombre string, apellido string, carnet int, password string) {
 	nuevoEstudiante := &Nodo_estudiante{nombre, apellido, carnet, password}
 	if l.estaVacia() {
@@ -40,11 +37,11 @@ func (l *ListaDoble) AgregarEstudiante(nombre string, apellido string, carnet in
 		l.Longitud++
 	} else {
 		nuevoNodo := l.newNodo(nuevoEstudiante)
-		if l.Final.anterior == nil { //corroboramos si hay un solo elemento
+		if l.Final.anterior == nil {
 			nuevoNodo.anterior = l.Inicio
 			l.Inicio.siguiente = nuevoNodo
 			l.Final = nuevoNodo
-		} else { //Si hay mas de 1 elemento
+		} else {
 			l.Final.siguiente = nuevoNodo
 			nuevoNodo.anterior = l.Final
 			l.Final = nuevoNodo
@@ -53,7 +50,6 @@ func (l *ListaDoble) AgregarEstudiante(nombre string, apellido string, carnet in
 	}
 }
 
-// Funciones para mostrar  el contenido de ambas listas
 func (l *ListaDoble) MostrarLista() {
 	aux := l.Inicio
 	for aux != nil {
@@ -62,21 +58,6 @@ func (l *ListaDoble) MostrarLista() {
 	}
 }
 
-// Funcion para el ordenamiento de la lista
-func (l *ListaDoble) OrdenarEstudiantes(listado [10]int) {
-	lista := listado
-
-	for i := 0; i < len(lista); i++ {
-		for j := 0; j < len(lista)-1; j++ {
-			if lista[j] > lista[j+1] {
-				temp := lista[j]
-				lista[j] = lista[j+1]
-				lista[j+1] = temp
-			}
-		}
-	}
-	fmt.Println("Lista de numeros ordenados: ", lista)
-}
 func (l *ListaDoble) OrdenamientoInsercion() {
 	if l.Longitud > 1 {
 		i := l.Inicio.siguiente
@@ -103,7 +84,6 @@ func ArchivoJSON(l *ListaDoble) string {
 		contenido += "\t\t},\n"
 		aux = aux.siguiente
 	}
-	//esto es para el ultimo elemento
 	contenido += "\t\t{\n"
 	contenido += "\t\t\t\"nombre\": \"" + (aux.nestudiante.Nombre) + "\", \n"
 	contenido += "\t\t\t\"carnet\": " + strconv.Itoa(aux.nestudiante.Carnet) + ", \n"
@@ -118,59 +98,7 @@ func Generarjson(l *ListaDoble) {
 	CrearArchivo()
 	EscribirArchivo(ArchivoJSON(l))
 }
-func (l *ListaDoble) GraficarListaDoble() {
-	var a bytes.Buffer
-	nombre_archivo := "./ListaDoble.dot"
-	nombre_imagen := "ListaDoble.jpg"
-	texto := "digraph pila{\n"
-	texto += "rankdir=LR;\n"
-	texto += "node[shape = record]"
-	aux := l.Inicio
-	for aux != nil {
-		a.WriteString(fmt.Sprintf("\"%p\"[label=\"{<prev>|%v|<next>}\"]\n", aux, aux.nestudiante.Nombre))
-		if aux.siguiente != nil {
-			a.WriteString(fmt.Sprintf("\"%p\":next  -> \"%p\":prev\n", aux, &aux.nestudiante.Nombre))
-		}
-		aux = aux.siguiente
-	}
-	texto += ("}\n")
-	crearArchivo(nombre_archivo)
-	escribirArchivoDot(texto, nombre_archivo)
-	ejecutar(nombre_imagen, nombre_archivo)
-}
 
-/*
-	func (l *ListaDoble)GraficaListaDoble(){
-		temporal :=l.Inicio
-		//codigodot :="digraph G{\ngraph[pad=0.5,nodesep=1,ranksep=1,shape=box,fillcolor=deeppink3];\nnode[shape=box, fillcolor=deeppink3,color=darkred]\nfontsize=28;\nede[dir=]"}
-		nodos := ""
-		conexiones:= ""
-		numnodo:=0
-		contador:=0
-		nombre_archivo := "./ListaDoble.dot"
-		nombre_imagen := "ListaDoble.jpg"
-		direccion:= "\n{rank=same; "
-		if l.Longitud<5{
-			for contador !=l.Longitud{
-				nodos += fmt.Sprintf("Nodo%d[label =\" %s\\n %s \"];\n",numnodo,strconv.Itoa(temporal.nestudiante.Carnet),temporal.nestudiante.Apellido)
-				direccion += fmt.Sprintf("Nodo%d;",numnodo)
-				temporal=temporal.siguiente
-				contador++
-				numnodo++
-			}
-			direccion+="}\n"
-			contador=0
-			numnodo=0
-			for contador !=l.Longitud-1{
-				numaux:= numnodo+1
-				conexiones+= fmt.Sprintf("",numnodo,numaux)
-				numnodo++
-				numaux++
-
-			}
-		}
-	}
-*/
 func (l *ListaDoble) GraficarListaDoblee() {
 	nombre_archivo := "./ListaDoble.dot"
 	nombre_imagen := "ListaDoble.jpg"

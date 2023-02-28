@@ -41,10 +41,7 @@ func main() {
 			fmt.Print("")
 			if usuario == "admin" && contrasenia == "admin" {
 				fmt.Println("Bienvenido Administrador")
-				//Println("entró con éxito")
 				main2()
-				//pila.Push(formato_hora())
-				//pila.Graficar()
 			} else if usuario == "admin" && contrasenia != "admin" {
 				fmt.Println("Contraseña Incorrecta")
 
@@ -166,10 +163,6 @@ func MostrarPrimerEstudiante() {
 			lista.OrdenamientoInsercion()
 			lista.MostrarLista()
 			lista.GraficarListaDoblee()
-			//lista.GraficarListaDoble()
-			//ACA DEBEN DE IR ESTUDIANTES ORDENADOS----------------------------------------------------------------------
-			//cola.MostrarPrimero()-------------aca no va nada
-			//pila.Graficar()
 			break
 		case 2:
 			fmt.Println("Cerrando Menú...")
@@ -184,7 +177,6 @@ func EstudiantesPendientes() {
 	//Variables a utilizar en el menú
 	option := 0
 	exit := false
-	//contenido := estructuras.ArchivoJSON(lista)
 	for !exit {
 		if cola.Longitud != 0 {
 			cola.MostrarPrimero()
@@ -203,9 +195,6 @@ func EstudiantesPendientes() {
 
 				pila.Graficar()
 				estructuras.Generarjson(lista)
-				//estructuras.CrearArchivo()
-				//estructuras.EscribirArchivo(contenido)
-
 				cola.GraficarEstudiantes()
 				break
 			case 2:
@@ -235,7 +224,6 @@ func CargaMasiva() {
 	exit := false
 	for !exit {
 		fmt.Println("************* Carga Masiva *************")
-		fmt.Println(" Estudiante Actual: ")
 		fmt.Println("1. Carga Masiva")
 		fmt.Println("2. Volver al Menu")
 		fmt.Scan(&option)
