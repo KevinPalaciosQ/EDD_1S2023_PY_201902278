@@ -1,1 +1,5 @@
-# EDD_1S2023_PY_201902278
+# EDD GoDrive
+---
+- Nombre: Kevin Estuardo Palacios Quiñonez
+- Carne: 201902278
+- Curso: Estructuras de Datos Sección: C
