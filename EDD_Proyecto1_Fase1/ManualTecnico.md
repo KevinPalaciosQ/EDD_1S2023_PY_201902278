@@ -25,8 +25,9 @@ El manual va dirigido a distintos programadores interesados en el conocimiento d
 - Tener Instalada la Librería Graphiz
 ---
 5. Lógica de la Aplicación
-1.1 Funciones de la Aplicación
-### U+1F534  formato_hora()
+5.1 Funciones de la Aplicación
+###   formato_hora()
+Funcion encargada de obtener la hora y fecha del sistema al Apilar Estudiantes
 ```
 func formato_hora() string {
 	tiempo := time.Now()
@@ -38,4 +39,73 @@ func formato_hora() string {
 	return texto_final
 
 }
+```
+###   CargaMasivadeArchivos()
+Funcion encargada de Cargar los archivos del programa
+```
+func CargaMasivadeArchivos() {
+	fmt.Println("***********************************CARGA MASIVA*********************")
+	file, eror := os.Open("Estudiantes.csv")
+	if eror != nil {
+		panic(eror)
+	}
+	defer file.Close()
+
+	reader := csv.NewReader(file)
+	reader.Comma = ','
+	reader.FieldsPerRecord = -1
+
+	headers, eror := reader.Read()
+	if eror != nil {
+		panic(eror)
+	}
+	fmt.Println("Se han cargado correctamente con formato:", headers)
+	for {
+		record, eror := reader.Read()
+		if eror != nil {
+			break
+		}
+		val_carnet, eror := strconv.Atoi(record[0])
+		if eror != nil {
+			print(eror)
+		}
+		cola.Encolar(record[1], "", val_carnet, record[2])
+	}
+}
+
+```
+###   ArchivoJSON()
+Funcion encargada de Generar el Archivo Json
+```
+func ArchivoJSON(l *ListaDoble) string {
+	contenido := "{\n"
+	contenido += "\t\"alumnos\": [\n"
+	aux := l.Inicio
+	for aux.siguiente != nil {
+		contenido += "\t\t{\n"
+		contenido += "\t\t\t\"nombre\": \"" + (aux.nestudiante.Nombre) + "\", \n"
+		contenido += "\t\t\t\"carnet\": " + strconv.Itoa(aux.nestudiante.Carnet) + ", \n"
+		contenido += "\t\t\t\"password\": \"" + (aux.nestudiante.Password) + "\", \n"
+		contenido += "\t\t\t\"Carpeta_Raiz\": \"/\" \n"
+		contenido += "\t\t},\n"
+		aux = aux.siguiente
+	}
+	//esto es para el ultimo elemento
+	contenido += "\t\t{\n"
+	contenido += "\t\t\t\"nombre\": \"" + (aux.nestudiante.Nombre) + "\", \n"
+	contenido += "\t\t\t\"carnet\": " + strconv.Itoa(aux.nestudiante.Carnet) + ", \n"
+	contenido += "\t\t\t\"password\": \"" + (aux.nestudiante.Password) + "\", \n"
+	contenido += "\t\t\t\"Carpeta_Raiz\": \"/\" \n"
+	contenido += "\t\t}\n"
+	contenido += "\t]\n"
+	contenido += "}"
+	return contenido
+}
+func Generarjson(l *ListaDoble) {
+	CrearArchivo()
+	EscribirArchivo(ArchivoJSON(l))
+}
+```
+5.2 Estructuras de Datos
+```
 ```
