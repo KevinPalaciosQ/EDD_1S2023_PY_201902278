@@ -6,9 +6,7 @@ import (
 )
 
 func CrearArchivo() {
-	//Verifica que el archivo existe
 	var _, err = os.Stat("Archivo.json")
-	//Crea el archivo si no existe
 	if os.IsNotExist(err) {
 		var file, err = os.Create("Archivo.json")
 		if err != nil {
@@ -25,12 +23,10 @@ func EscribirArchivo(contenido string) {
 		return
 	}
 	defer file.Close()
-	// Escribe algo de texto linea por linea
 	_, err = file.WriteString(contenido)
 	if err != nil {
 		return
 	}
-	// Salva los cambios
 	err = file.Sync()
 	if err != nil {
 		return

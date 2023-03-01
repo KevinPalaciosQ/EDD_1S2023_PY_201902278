@@ -1,12 +1,15 @@
 digraph listadoble{
-rankdir=LR;
-node[shape = record, style=filled, color=skyblue, fontname="Century Gothic"];
+node[shape = box, style=filled, color=skyblue, fontname="Century Gothic"];
 nodonull1[label="null"];
 nodonull2[label="null"];
-nodo0[label="{saludito  hewo  1}"];
-nodo1[label="{hola  hello  1000}"];
-nodo2[label="{Ebany Larios    201403877}"];
-nodo3[label="{Cristian Suy    201700918}"];
+nodo0[label="Rodri Ale\n21"group=0];
+nodo0_0[label="Se inició sesión\n28/02/2023 21:29:30" group=0];
+nodo0->nodo0_0;
+nodo1[label="Piter Valiente\n22"group=1];
+nodo1_0[label="Se inició sesión\n28/02/2023 21:29:23" group=1];
+nodo1->nodo1_0;
+nodo2[label="Ebany Larios \n201403877"group=2];
+nodo3[label="Cristian Suy \n201700918"group=3];
 nodonull1->nodo0;
 nodo0->nodo1;
 nodo1->nodo0;
@@ -15,9 +18,6 @@ nodo2->nodo1;
 nodo2->nodo3;
 nodo3->nodo2;
 nodo3->nodonull2;
-}3->nodo4;
-nodo4->nodo3;
-nodo4->nodo5;
-nodo5->nodo4;
-nodo5->nodonull2;
-}
+{rank=same; nodonull1; nodonull2;nodo0; nodo1; nodo2; nodo3; }}do2;
+nodo3->nodonull2;
+{rank=same; nodonull1; nodonull2;nodo0; nodo1; nodo2; nodo3; }}

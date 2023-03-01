@@ -8,9 +8,7 @@ import (
 )
 
 func crearArchivo(nombre_archivo string) {
-	//Verifica que el archivo existe
 	var _, err = os.Stat(nombre_archivo)
-	//Crea el archivo si no existe
 	if os.IsNotExist(err) {
 		var file, err = os.Create(nombre_archivo)
 		if err != nil {
@@ -27,12 +25,10 @@ func escribirArchivoDot(contenido string, nombre_archivo string) {
 		return
 	}
 	defer file.Close()
-	// Escribe algo de texto linea por linea
 	_, err = file.WriteString(contenido)
 	if err != nil {
 		return
 	}
-	// Salva los cambios
 	err = file.Sync()
 	if err != nil {
 		return

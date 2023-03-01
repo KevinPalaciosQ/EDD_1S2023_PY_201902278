@@ -13,6 +13,10 @@ var cola *estructuras.Cola = &estructuras.Cola{Primero: nil, Longitud: 0}
 var lista *estructuras.ListaDoble = &estructuras.ListaDoble{Inicio: nil, Final: nil}
 var cola_ *estructuras.Cola_ = &estructuras.Cola_{Primero_: nil, Longitud: 0}
 var pila *estructuras.Pila = &estructuras.Pila{Primero_: nil, Longitud: 0}
+var nombre string
+var apellido string
+var carnet int
+var password string
 
 // -------------------------------MENU PRINCIPAL DEL PROGRAMA---------------------------------------------------------------------------
 func main() {
@@ -48,6 +52,7 @@ func main() {
 			} else if usuario != "admin" {
 				fmt.Println("Serás dirigido al Dashbord de Estudiantes")
 				LoginEstudiante()
+				//revision()
 			}
 			break
 		case 2:
@@ -95,6 +100,7 @@ func main2() {
 		case 5:
 			fmt.Println("Has Elegido la opción 5")
 			lista.MostrarLista()
+			//lista.GraficarDobles()
 			cola_.Graficar()
 			break
 		case 6:
@@ -108,12 +114,7 @@ func main2() {
 // -----------------------------------MENU PARA REGISTRAR ESTUDIANTES A MANITA-----------------------------------------------------------
 func RegistroEstudiante() {
 	//Variables a utilizar en el menú
-	var (
-		nombre   string
-		apellido string
-		carnet   int
-		password string
-	)
+
 	option := 0
 	exit := false
 	for !exit {
@@ -162,7 +163,9 @@ func MostrarPrimerEstudiante() {
 			fmt.Println("Estudiantes Ordenados ")
 			lista.OrdenamientoInsercion()
 			lista.MostrarLista()
-			lista.GraficarListaDoblee()
+
+			//lista.GraficarListaDoblee()
+			//lista.GraficarDobles()
 			break
 		case 2:
 			fmt.Println("Cerrando Menú...")
@@ -296,12 +299,25 @@ func LoginEstudiante() {
 		fmt.Print("Elige una Opción: ")
 		switch option {
 		case 1:
-
+			fmt.Println("Ingrese Carnet")
+			fmt.Scan(&carnet)
+			fmt.Println("Ingrese Contraseña")
+			fmt.Scan(&password)
+			revision()
 			break
 		case 2:
 			fmt.Println("Cerrando Menú...")
 			exit1 = true
 			break
 		}
+	}
+}
+func revision() {
+	if lista.Recorrer(strconv.Itoa(carnet), password) != nil {
+		fmt.Println("Estuiante inició sesion con éxito")
+		lista.AgregarBitacora(strconv.Itoa(carnet), formato_hora())
+		lista.GraficarDobles()
+	} else {
+		fmt.Println("Credenciales Incorrectas")
 	}
 }

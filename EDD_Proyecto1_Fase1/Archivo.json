@@ -13,15 +13,15 @@
 			"Carpeta_Raiz": "/" 
 		},
 		{
-			"nombre": "hola", 
-			"carnet": 1000, 
-			"password": "1000", 
+			"nombre": "Piter", 
+			"carnet": 22, 
+			"password": "22", 
 			"Carpeta_Raiz": "/" 
 		},
 		{
-			"nombre": "saludito", 
-			"carnet": 1, 
-			"password": "1", 
+			"nombre": "Rodri", 
+			"carnet": 21, 
+			"password": "21", 
 			"Carpeta_Raiz": "/" 
 		}
 	]

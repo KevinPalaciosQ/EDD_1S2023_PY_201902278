@@ -1,5 +1,5 @@
 digraph pila{
 rankdir=LR;
-node[shape = record, color=purple, fontname="Century Gothic"]nodo0 [label="|(Se Aceptó a Estudiante: 28/02/2023 16:11:51)|(Se Aceptó a Estudiante: 28/02/2023 16:11:49)|(Se Aceptó a Estudiante: 28/02/2023 16:11:48)|(Se Rechazó a Estudiante 28/02/2023 16:11:45)|(Se Aceptó a Estudiante: 28/02/2023 16:11:39)"]; 
+node[shape = record, color=purple, fontname="Century Gothic"]nodo0 [label="|(Se Aceptó a Estudiante: 28/02/2023 21:28:23)|(Se Aceptó a Estudiante: 28/02/2023 21:28:21)|(Se Aceptó a Estudiante: 28/02/2023 21:28:17)|(Se Rechazó a Estudiante 28/02/2023 21:28:13)|(Se Aceptó a Estudiante: 28/02/2023 21:28:06)"]; 
 }Aceptó a Estudiante 27/02/2023 22:48:52)"]; 
 }
