@@ -163,9 +163,6 @@ func MostrarPrimerEstudiante() {
 			fmt.Println("Estudiantes Ordenados ")
 			lista.OrdenamientoInsercion()
 			lista.MostrarLista()
-
-			//lista.GraficarListaDoblee()
-			//lista.GraficarDobles()
 			break
 		case 2:
 			fmt.Println("Cerrando Menú...")
@@ -259,10 +256,11 @@ func formato_hora() string {
 // ------------------------------------------CARGA DE ESTUDIANTES------------------------------------------------------------------------
 func CargaMasivadeArchivos() {
 	fmt.Println("***********************************CARGA MASIVA*********************")
-	file, eror := os.Open("Estudiantes.csv")
+	file, eror := os.Open("Estudiante.csv")
 	if eror != nil {
 		panic(eror)
 	}
+
 	defer file.Close()
 
 	reader := csv.NewReader(file)
