@@ -100,35 +100,6 @@ func Generarjson(l *ListaDoble) {
 	EscribirArchivo(ArchivoJSON(l))
 }
 
-func (l *ListaDoble) GraficarListaDoblee() {
-	nombre_archivo := "./ListaDoble.dot"
-	nombre_imagen := "ListaDoble.jpg"
-	texto := "digraph listadoble{\n"
-	texto += "rankdir=LR;\n"
-	texto += "node[shape = record, style=filled, color=skyblue, fontname=\"Century Gothic\"];\n"
-	texto += "nodonull1[label=\"null\"];\n"
-	texto += "nodonull2[label=\"null\"];\n"
-	aux := l.Inicio
-	contador := 0
-	for i := 0; i < l.Longitud; i++ {
-		texto = texto + "nodo" + strconv.Itoa(i) + "[label=\"{" + aux.nestudiante.Nombre + "  " + aux.nestudiante.Apellido + "  " + strconv.Itoa(aux.nestudiante.Carnet) + "}\"];\n"
-		aux = aux.siguiente
-	}
-	for i := 0; i < l.Longitud-1; i++ {
-		l := i + 1
-		if i == 0 {
-			texto += "nodonull1->" + "nodo" + strconv.Itoa(i) + ";\n"
-		}
-		texto += "nodo" + strconv.Itoa(i) + "->nodo" + strconv.Itoa(l) + ";\n"
-		texto += "nodo" + strconv.Itoa(l) + "->nodo" + strconv.Itoa(i) + ";\n"
-		contador = l
-	}
-	texto += "nodo" + strconv.Itoa(contador) + "->nodonull2;\n"
-	texto += "}"
-	crearArchivo(nombre_archivo)
-	escribirArchivoDot(texto, nombre_archivo)
-	ejecutar(nombre_imagen, nombre_archivo)
-}
 func (l *ListaDoble) GraficarDobles() {
 	nombre_archivo := "./ListaDoble.dot"
 	nombre_imagen := "ListaDoble.jpg"
