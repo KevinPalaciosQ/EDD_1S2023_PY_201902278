@@ -202,6 +202,7 @@ func EstudiantesPendientes() {
 				//Descola-Elimina estudiantes y genera reporte
 				cola.Descolar()
 				pila.Push("Se Rechazó a Estudiante " + formato_hora())
+				cola.GraficarEstudiantes()
 
 				break
 			case 3:
@@ -256,7 +257,7 @@ func formato_hora() string {
 // ------------------------------------------CARGA DE ESTUDIANTES------------------------------------------------------------------------
 func CargaMasivadeArchivos() {
 	fmt.Println("***********************************CARGA MASIVA*********************")
-	file, eror := os.Open("Estudiante.csv")
+	file, eror := os.Open("Estudiante(1).csv")
 	if eror != nil {
 		panic(eror)
 	}
