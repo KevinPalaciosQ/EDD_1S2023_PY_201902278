@@ -37,7 +37,6 @@
     <meta content="" name="description">
     <!--ICONO DEL PROGRAMA -->
     <!-- Favicon -->
-    <link href="Administrador/img/favicon.ico" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -49,53 +48,44 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="Administrador/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="Administrador/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+    <link href="./estilos/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="./estilos/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="Administrador/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./estilos/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="Administrador/css/style.css" rel="stylesheet">
+    <link href="./estilos/css/style.css" rel="stylesheet">
 </head>
 
 <body>
     <div class="container-fluid position-relative d-flex p-0">
-        <!-- Spinner Start -->
-        <div id="spinner" class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-        </div>
-        <!-- Spinner End -->
-
-
         <!-- Sign In Start -->
         <div class="container-fluid">
             <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">
                 <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
                     <div class="bg-secondary rounded p-4 p-sm-5 my-4 mx-3">
                         <div class="d-flex align-items-center justify-content-between mb-3">
-                            <a href="Administrador/index.html" class="">
+                            <a href="index.html" class="">
                                 <h3 class="text-primary"><i class="fas fa-puzzle-piece"></i>Edd GoDrive</h3>
                             </a>
                             <h3></h3>
                         </div>
                         <form method="POST" id="loginForm"onclick=>
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="floatingInput">
-                            <label for="floatingInput">Usuario</label>
-                        </div>
-                        <div class="form-floating mb-4">
-                            <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-                            <label for="floatingPassword">Contraseña</label>
-                        </div>
-
-                        <div class="d-flex align-items-center justify-content-between mb-4">
-                            <a href="#" style="color: #fff" id="forgot-password-link" onclick="OlvidoContra()">¿Olvidaste tu contraseña?</a>
-                        </div>
-                        <button type="submit" class="btn btn-primary py-3 w-100 mb-4">LOGIN</button>
-                        </form>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="floatingInput">
+                                <label for="floatingInput">Usuario</label>
+                            </div>
+                            <div class="form-floating mb-4">
+                                <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                                <label for="floatingPassword">Contraseña</label>
+                            </div>
+    
+                            <div class="d-flex align-items-center justify-content-between mb-4">
+                                <a href="#" style="color: #fff" id="forgot-password-link" onclick="OlvidoContra()">¿Olvidaste tu contraseña?</a>
+                            </div>
+                            <button type="submit" class="btn btn-primary py-3 w-100 mb-4">LOGIN</button>
+                            </form>
                     </div>
                 </div>
             </div>
@@ -106,16 +96,16 @@
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="Administrador/lib/chart/chart.min.js"></script>
-    <script src="Administrador/lib/easing/easing.min.js"></script>
-    <script src="Administrador/lib/waypoints/waypoints.min.js"></script>
-    <script src="Administrador/lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="Administrador/lib/tempusdominus/js/moment.min.js"></script>
-    <script src="Administrador/lib/tempusdominus/js/moment-timezone.min.js"></script>
-    <script src="Administrador/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="./estilos/lib/chart/chart.min.js"></script>
+    <script src="./estilos/lib/easing/easing.min.js"></script>
+    <script src="./estilos/lib/waypoints/waypoints.min.js"></script>
+    <script src="./estilos/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="./estilos/lib/tempusdominus/js/moment.min.js"></script>
+    <script src="./estilos/lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="./estilos/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
     <!-- Template Javascript -->
-    <script src="Administrador/js/main.js"></script>
-    <script src="/EDD_Proyecto1_Fase2/index.js"></script>
+    <script src="./estilos/js/main.js"></script>
+    <script src="./EDD_Proyecto1_Fase2/index.js" type="module"></script>
 </body>
 
 </html>
