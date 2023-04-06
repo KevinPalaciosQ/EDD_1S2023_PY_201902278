@@ -1,7 +1,10 @@
-// Obtiene el form de Inicio de Sesión
-const form = document.getElementById('loginForm');
+import { AVLTree } from "./JavaScript/AVL.js";
+const AVLTreeJSon = localStorage.getItem("estudianteTreeAVL");
+const tree = JSON.parse(AVLTreeJSon);
+const studentsAVL = new AVLTree();
+studentsAVL.raiz = tree;
 
-// Añade un EventListener par obtener los datos
+const form = document.getElementById('loginForm');
 form.addEventListener('submit', (event) => {
   event.preventDefault();
 
@@ -12,27 +15,26 @@ form.addEventListener('submit', (event) => {
     username,
     password,
   };
-
-  // compara usuario y contraseña 
-  if (user.username === 'admin' && user.password === 'admin') {
-    // redirect to another html file
-    alert("Inicio de sesión exitoso.");
+  if (user.username === "admin" && user.password === "admin") {
+    alert("Bienvenido Administrador ;)");
     window.location.href = './EDD_Proyecto1_Fase2/Administrador/Carga.html';
-  }else {
-    // evaluate if is a student user
-    const estudiante = ArbolEstudiantes.BusquedaEstudiante(user.nombre);
-    // if the student exists
+  } else {
+    const estudiante = studentsAVL.BuscarEstudiante(user.username);
     if (estudiante) {
-      // compare the password
-      if (estudiante.contraseña === estudiante.password) {
-        console.log("Bienvenido"  + estudiante.nombre);
+      if (localStorage.getItem("currentUser") === null) {
+        if (estudiante.password === user.password) {
+          localStorage.setItem("currentUser", JSON.stringify(estudiante));
+          alert("Bienvenido Estudiante: "+estudiante.name);
+          window.location.href = './EDD_Proyecto1_Fase2/Estudiante/index.html';
+        }
+      }else {
+        console.log(localStorage.getItem("currentUser"));
+        alert("Hay un usuario logueado");
+        form.reset();
       }
+    } else {
+      alert("Usuario o contraseña incorrectos");
+      form.reset();
     }
-
-    // Mostrar Alerta
-    alert('Usuario o contraseña incorrectos');
-    // Limpia el Form
-    form.reset();
-
   }
 });

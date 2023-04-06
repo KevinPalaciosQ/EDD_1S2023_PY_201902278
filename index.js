@@ -10,7 +10,7 @@ function logear(){
   // compara usuario y contraseña 
   if (user.username === 'admin' && user.password === 'admin') {
     // redirect to another html file
-    alert("Inicio de sesión exitoso.");
+    alert("Bienvenido Administrador");
     location.href = './EDD_Proyecto1_Fase2/Administrador/Carga.html';
   }else {
     // evaluate if is a student user
@@ -19,7 +19,8 @@ function logear(){
     if (estudiante) {
       // compare the password
       if (estudiante.contraseña === estudiante.password) {
-        console.log("Bienvenido"  + estudiante.nombre);
+        alert("Bienvenido Estudiante: "+estudiante.nombre);
+        location.href = './EDD_Proyecto1_Fase2/Estudiante/index.html';
       }
     }
 
