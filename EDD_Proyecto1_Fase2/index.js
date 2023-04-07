@@ -21,15 +21,15 @@ form.addEventListener('submit', (event) => {
   } else {
     const estudiante = studentsAVL.BuscarEstudiante(user.username);
     if (estudiante) {
-      if (localStorage.getItem("currentUser") === null) {
-        if (estudiante.password === user.password) {
-          localStorage.setItem("currentUser", JSON.stringify(estudiante));
-          alert("Bienvenido Estudiante: "+estudiante.name);
-          window.location.href = './EDD_Proyecto1_Fase2/Estudiante/index.html';
-        }
-      }else {
-        console.log(localStorage.getItem("currentUser"));
-        alert("Hay un usuario logueado");
+      if (localStorage.getItem("currentUser") !== null) {
+        localStorage.removeItem("currentUser");
+      }
+      if (estudiante.password === user.password) {
+        localStorage.setItem("currentUser", JSON.stringify(estudiante));
+        alert("Bienvenido Estudiante: "+estudiante.name);
+        window.location.href = './EDD_Proyecto1_Fase2/Estudiante/index.html';
+      } else {
+        alert("Usuario o contraseña incorrectos");
         form.reset();
       }
     } else {
@@ -37,4 +37,4 @@ form.addEventListener('submit', (event) => {
       form.reset();
     }
   }
-});
+});  

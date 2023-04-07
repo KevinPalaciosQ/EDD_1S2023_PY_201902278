@@ -7,7 +7,7 @@ export class usuario_estudiante {
         
     }
 }
-// AVL TREE
+// ARBOL AVL
 export class nodoE {
     constructor(valor, estudiante) {
         this.valor = valor;
@@ -109,11 +109,8 @@ export class AVLTree {
             raiz.izquierda = this.RotacionIzquierda(raiz.izquierda);
             return this.RotacionDerecha(raiz);
         }
-        // return the raiz
         return raiz;
     }
-
-    // public method to insert a valor with a estudiante
     insertvalor(valor, estudiante) {
             const nuevonodo = new nodoE(valor, estudiante);
             this.raiz = this.insertarvalor(nuevonodo, this.raiz);
@@ -142,12 +139,9 @@ export class AVLTree {
     crearTextoParaGraphiz() {
             let texto = "digraph G {\n";
 
-            // Add the Graphviz attributes for the nodos and edges
             texto += "  node [shape=circle, color=skyblue, fontcolor=white, style=filled];\n";
             texto += "  edge [arrowsize=1.0, color=green];\n";
             texto += "  graph [bgcolor=lightgrey];\n";
-
-            // Recursive function to add the nodos and edges to the Graphviz texto
             function Agregarnodo(nodo) {
                 if (nodo != null) {
                     let nodolabel = nodo.valor.toString();
@@ -168,7 +162,6 @@ export class AVLTree {
             texto += "}";
             return texto;
         }
-        // return a list in order of the tree
     inOrder(raiz) {
             let list = [];
             if (raiz != null) {
@@ -178,7 +171,6 @@ export class AVLTree {
             }
             return list;
         }
-        // return a list pre order of the tree
     preOrder(raiz) {
             let list = [];
             if (raiz != null) {
@@ -188,7 +180,6 @@ export class AVLTree {
             }
             return list;
         }
-        // return a list post order of the tree
     postOrder(raiz) {
         let list = [];
         if (raiz != null) {
