@@ -98,34 +98,34 @@
             <!-- Navbar End -->
             <!-- Inicio Botones-->
             
-            <div style="height: 100px; text-align: center;">
-                <div style=" vertical-align: middle;">
-                <button style="margin: 50px;"button class="btn cur-p btn-light"id="b-inOrder" >Mostrar Alumnos (InOrder)</button>
-                <button style="margin: 50px;"button class="btn cur-p btn-light"id="b-preOrder">Mostrar Alumnos (PreOrder)</button>
-                <button style="margin: 50px;"button class="btn cur-p btn-light"id="b-postOrder">Mostrar Alumnos (PostOrder)</button>
-              </div>
-            </div>
-            <!-- Final Botones-->
-            <!-- Tabla Estudiantes Inicio -->
-            <div class="container-fluid pt-4 px-4">
-                <div class="bg-secondary text-center rounded p-4">
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                        <h6 class="text-primary"align-middle>Estudiantes en el Sistema</h6>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="table text-start align-middle table-bordered table-hover mb-0" id="table-estudiantes">
-                            <thead>
-                                <tr class="text-white">
-
-                                    <th scope="col">No.</th>
-                                    <th scope="col">Carnet</th>
-                                    <th scope="col">Nombre</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
-                    </div>
+  <!-- Main page -->
+  <div class="flex flex-col items-center justify-center w-full py-2">
+    <div style="height: 100px; text-align: center;">
+        <div style=" vertical-align: middle;">
+        <button style="margin: 50px;"button class="btn cur-p btn-light"id="b-inOrder" >Mostrar Alumnos (InOrder)</button>
+        <button style="margin: 50px;"button class="btn cur-p btn-light"id="b-preOrder">Mostrar Alumnos (PreOrder)</button>
+        <button style="margin: 50px;"button class="btn cur-p btn-light"id="b-postOrder">Mostrar Alumnos (PostOrder)</button>
+      </div>
+    </div>
+    <h6 class="text-primary"align-middle>Estudiantes en el Sistema</h6>
+    <!-- Table layout -->
+    <div
+      class="d-flex align-items-center justify-content-between mb-4">
+      <!-- Table  -->
+      
+      <table class="table text-start align-middle table-bordered table-hover mb-0" id="table-students">
+        <thead>
+          <tr>
+            <th scope="col" >No.</th>
+            <th scope="col" >Carnet</th>
+            <th scope="col" >Nombre</th>
+          </tr>
+        </thead>
+        <tbody class=" divide-gray-200">
+          
+          <!-- More people... -->
+        </tbody>
+      </table>
                 </div>
             </div>
             <!-- Tabla Estudiantes Final -->
@@ -166,10 +166,8 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
-    <script src="/main.js"></script>
-    <script src="JavaScript/main.js"></script>
     <script src="../JavaScript/AVL.js" type="module"></script>
-    <script src="../JavaScript/tabla.js" type="module"></script>
+    <script src="../Administrador/TablaEstudiantes.js" type="module"></script>
     
 </body>
 

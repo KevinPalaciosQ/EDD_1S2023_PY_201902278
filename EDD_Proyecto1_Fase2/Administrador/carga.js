@@ -1,34 +1,33 @@
-import { AVLTree, usuario_estudiante } from "../JavaScript/AVL.js"
-// get the form
-const form = document.getElementById('uploadForm');
+// Importaciones realizadas 
+import { AVLTree, userStudent } from "../JavaScript/AVL.js";
+const form = document.getElementById("Carga");
 const reader = new FileReader();
-// add functionality
+// se da uso al Event Listener 
 form.addEventListener('submit', (event) => {
     event.preventDefault();
-    // append to the AVL TREE
-    const estudiantesAVL = new AVLTree();
-    // get the file from the file input
-    const file = document.getElementById('file').files[0];
-    // parse the file to JSON
+
+    const studentsAVL = new AVLTree();
+
+    const file = document.getElementById("Archivo").files[0];
+
     reader.readAsText(file);
-    // console log
+
     reader.onload = () => {
-        // parse to json
+
         const jsonFile = JSON.parse(reader.result);
-        // insert the valors
-        jsonFile["alumnos"].forEach((estudiante) => {
-                // create the estudiante
-                const nuevo_estudiante = new usuario_estudiante(estudiante.nombre, estudiante.carnet, estudiante.password, estudiante.raiz_archivo);
-                // insert the valor
-                estudiantesAVL.insertvalor(nuevo_estudiante.carnet, nuevo_estudiante);
+
+        jsonFile["alumnos"].forEach((student) => {
+                // Creación del estudiante
+                const newStudent = new userStudent(student.nombre, student.carnet, student.password, student.root_file);
+                // Se inserta el estudiante
+                studentsAVL.insertarValor(newStudent.carnet, newStudent);
             })
-            // save the tree in the local storage
-        localStorage.setItem('estudianteTreeAVL', JSON.stringify(estudiantesAVL.raiz));
+            // Se obtiene el LocalStorage
+        localStorage.setItem('studentTreeAVL', JSON.stringify(studentsAVL.raiz));
     };
-    console.log(typeof estudiantesAVL.raiz)
-        // show alert 
+
     alert('Archivo cargado correctamente');
-    // reset 
+
     form.reset();
 
 });

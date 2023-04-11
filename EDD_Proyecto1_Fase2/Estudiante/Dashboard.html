@@ -7,9 +7,6 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
-    <meta content="width=device-width, initial-scale=1.0" ca="viewport">
-    <meta content="" ca="keywords">
-    <meta content="" ca="description">
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
 
@@ -33,14 +30,15 @@
     <link href="css/style.css" rel="stylesheet">
 </head>
 
-<body onload="mostrarestudiante()">
+<body>
 
     <div class="container-fluid position-relative d-flex p-0">
-
+      
         <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-secondary navbar-dark">
-                <a href="index.html" class="navbar-brand mx-4 mb-3">
+              <h6 id="userTitle" class="text-black group flex gap-x-3 rounded-md p-2 text-xl leading-6 font-[500]"></h6>
+                <a href="Dashboard.html"  class="navbar-brand mx-4 mb-3">
                     <h3 class="text-primary"><i class="fa fa-graduation-cap"></i>EDD GoDrive</h3>
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
@@ -55,11 +53,12 @@
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="index.html" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                    <a href="element.html" class="nav-item nav-link"><i class="fa fa-laptop me-2"></i>Bitácora</a>
-                    <a href="widget.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Reporte Carpetas</a>
-                    <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Reporte Archivos</a>
+                    <a href="Dashboard.html" class="nav-item nav-link active"><i class="fa fa-upload"></i>Dashboard</a>
+                    <a href="BitacoraEstudiante.html" class="nav-item nav-link"><i class="fa fa-laptop me-2"></i>Bitácora</a>
+                    <a href="ReporteCarpeta.html" class="nav-item nav-link"><i class="fa fa-folder"></i>Reporte Carpetas</a>
+                    <a href="ReporteArchivos.html" class="nav-item nav-link"><i class="fa fa-file"></i>Reporte Archivos</a>
                 </div>
+
             </nav>
         </div>
         <!-- Sidebar End -->
@@ -69,14 +68,17 @@
         <div class="content">
             <!-- Navbar Start -->
             <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
-                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
+                <a href="Dashboard.html"  class="navbar-brand d-flex d-lg-none me-4">
                     <h2 class="text-primary mb-0"><i class="fa fa-user-edit"></i></h2>
                 </a>
                 <a href="#" class="sidebar-toggler flex-shrink-0">
                     <i class="fa fa-bars"></i>
                 </a>
-                <form class="d-none d-md-flex ms-4">
-                    <input class="form-control bg-dark border-0" type="search" placeholder="Search">
+                <form class="relative flex flex-1" action="#" method="GET">
+                  <label for="search-field" class="sr-only">Search</label>
+                  <input id="search-file"
+                    class="form-control bg-dark border-0"
+                    placeholder="Buscar directorio" type="text" name="search">
                 </form>
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
@@ -93,8 +95,119 @@
                 </div>
             </nav>
             <!-- Navbar End -->
+            <!-- Centro-->
+            <div class="container-fluid pt-4 px-4">
+                <div class="row g-4">
+                    <div class="col-sm-12 col-xl-6">
+                    </div>
+                </div>
+            </div>
 
+            <!-- Other Elements End -->
+            <div class="p-2 mb-2 bg-light text-dark text-center">Explorar el contenido de la carpeta raíz y sus archivos "/"</div>
+            <ul role="list" class="-mx-2 mt-2 space-y-1">
+              <br>
+                <!-- Current: "bg-indigo-700 text-white", Default: "text-indigo-200 hover:text-white hover:bg-indigo-700" -->
+                <input type="text" name="new-directory" id="new-directory"
+                  class="form-control bg-dark border-0"
+                  placeholder="Crea tu Carpeta">
+                  <br>
+                <button id="create-btn"
+                  class="btn cur-p btn-light">
+                  <span
+                    class="btn cur-p btn-light">↵</span>
+                  <span class="truncate">Crear Carpeta</span>
+                </button>
+                <br>
+                <br>
+                <button id="delete-btn"
+                  class="btn cur-p btn-light">
+                  <span
+                    class="btn cur-p btn-light">x</span>
+                  <span class="truncate">Eliminar Carpeta</span>
+                </button>
+              <br>
+              <!-- Separator -->
+              <div class="border-t border-white"></div>
+              <br>
+                <div>
+                    <div class="text-center">
 
+                      <div class="mt-2 flex text-sm leading-6 text-wnite">
+                        <label for="file-upload"
+                          class="form-control bg-dark">
+                          <span>Elije un archivo</span>
+                          <input id="file-upload" name="file-upload" type="file" class="sr-only">
+                        </label>
+                      </div>
+                      <p class="text-xs leading-5 text-white">Solo Archivos PNG, JPG, PDF </p>
+                    </div>
+                </div>
+                <button
+                  id="upload-btn"
+                  class="btn cur-p btn-light">
+                  <br>
+                  <span
+                    class="btn cur-p btn-light">↑</span>
+                  <span class="truncate">Subir archivo</span>
+                </button>
+              
+              <!-- Separator -->
+              <div class="border-t border-white"></div>
+              <br>
+                <label for="text" class="block text-sm font-medium leading-6 pl-1 text-white">Nombre del archivo</label>
+                <div class="mt-2">
+                  <input type="text" name="email" id="nameFile" class="form-control bg-dark border-0" placeholder="Archivo.ExtensionDeseada">
+                </div>
+
+              <br>
+                <label for="text" class="block text-sm font-medium leading-6 pl-1 text-white">Carnet</label>
+                <div class="mt-2">
+                  <input type="text" name="email" id="carnetFile"  class="form-control bg-dark border-0"placeholder="Ingresa tu Carnet">
+                </div>
+                    
+                <label for="text" class="block text-sm font-medium leading-6 pl-1 text-white" >Permiso</label>
+                <br>
+                <select id="permissionFile" name="location" class="mt blockquote">
+                  <option selected> </option>
+                  <option>r (leer) </option>
+                  <option>w (escribir)</option>
+                  <option>r-w (leer y escribir)</option>
+                </select>
+              
+                <br>
+              
+                <button id="set-permissions-btn"
+                  class="btn cur-p btn-light">
+                  <span
+                    class="btn cur-p btn-light">O</span>
+                  <span class="text-truncate">Otorgar permisos</span>
+                </button>
+              
+            </ul>
+
+            <main class="py-10">
+              <div class="px-4 sm:px-6 lg:px-8">
+                  <table class="min-w-full divide-y divide-gray-300">
+                      <thead>
+                        <div class="p-2 mb-2 bg-success text-white">Archivos disponibles en el directorio</div>
+                          <tr>
+                              <th scope="col" id="title-th" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">
+                                
+                              </th>
+                          </tr>
+                      </thead>
+                      <tbody class="divide-y divide-gray-200" id="table-body">
+                          <tr>
+                              <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
+
+                              </td>
+                          </tr>
+                          <!-- More people... -->
+                      </tbody>
+                  </table>
+              </div>
+          </main>
                 <!-- Footer Start -->
                 <div class="container-fluid pt-4 px-4">
                     <div class="bg-secondary rounded-top p-4">
@@ -135,7 +248,7 @@
     <script src="js/main.js"></script>
     <script src="../index.js" type="module"></script>
     <script>
-        var estudiantelog = localStorage.getItem("currentUser");
+        var estudiantelog = localStorage.getItem("EstudianteActual");
         let usuario = JSON.parse(estudiantelog);
         
         let carnetEl = document.createElement("h6");
@@ -146,7 +259,7 @@
         nombreEl.innerHTML = `${usuario.name}`;
         document.getElementById("nombre").appendChild(nombreEl);
       </script>
-      
+      <script src="./usuario.js" type="module"></script>
 </body>
 
 </html>
