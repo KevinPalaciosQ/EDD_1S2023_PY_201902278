@@ -73,7 +73,7 @@
 
 
         <!-- Content Start -->
-        <div class="content">
+        <div class="container-md">
             <!-- Navbar Start -->
             <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
                 <a href="Carga.html" class="navbar-brand d-flex d-lg-none me-4">
@@ -106,66 +106,16 @@
         <div style=" vertical-align: middle;">
       </div>
     </div>
-    <div class="p-2 mb-2 bg-success text-white text-uppercase text-center">Usuarios</div>
     <!-- Table layout -->
-    <div
-      class="d-flex align-items-center justify-content-between mb-4">
-      <table class="table text-start align-middle table-bordered table-hover mb-0" id="table-students">
-        <thead>
-          <tr>
-            <th scope="col" >No.</th>
-            <th scope="col" >Carnet</th>
-            <th scope="col" >Nombre</th>
-            <th scope="col" >Contraseña</th>
-          </tr>
-        </thead>
-        <tbody class=" divide-gray-200">
-        </tbody>
-      </table>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-                </div>
-                <div class="p-2 mb-2 bg-success text-white text-uppercase text-center">Permisos</div>
-                <div
-                class="d-flex align-items-center justify-content-between mb-4">
-                <table class="table text-start align-middle table-bordered table-hover mb-0" id="table-students">
-                  <thead>
-                    <tr>
-                      <th scope="col" >Propietario</th>
-                      <th scope="col" >Destino</th>
-                      <th scope="col" >Ubicación</th>
-                      <th scope="col" >Archivo</th>
-                      <th scope="col" >Permisos</th>
-                    </tr>
-                  </thead>
-                  <tbody class=" divide-gray-200">
-                  </tbody>
-                </table>
-                
-                          </div>
-            </div>
-            <!-- Tabla Estudiantes Final -->
+    <div class="container">
+        <div>
+            <input type="file" id="input" multiple />
+        </div>
+        <button class="btn btn-outline-secondary" type="button" id="button-addon1" onclick="busquedaUsuario()">Ingresa tu carnet</button>
+        <input type="text" id="valor" class="form-control" placeholder="Busca tu carnet" aria-label="Example text with button addon" aria-describedby="button-addon1">
+        </div>
 
-            <!-- Footer Start -->
-            <div class="container-fluid pt-4 px-4">
-                <div class="bg-secondary rounded-top p-4">
-                    <div class="row">
-                        <div class="col-12 col-sm-6 text-center text-sm-start">
-                            &copy; <a href="#">Edd GoDrive</a>, All Right Reserved. 
-                        </div>
-                        <div class="col-12 col-sm-6 text-center text-sm-end">
-                            <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                            Designed By <a href="https://github.com/KevinPalaciosQ">Kevin Palacios</a>
-                            <br>Distributed By: <a href="https://dtt-ecys.org" target="_blank">ECYS</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Footer End -->
+            <!-- Tabla Estudiantes Final -->
         </div>
         <!-- Content End -->
 
@@ -186,9 +136,9 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
-    <script src="../JavaScript/AVL.js" type="module"></script>
-    <script src="../Administrador/TablaEstudiantes.js" type="module"></script>
-    
+    <script src="../JavaScript/TablaHash.js"></script>
+    <script src="../JavaScript/tablaparaHash.js" ></script>
+    <script src="../JavaScript/sha256.js" ></script>
 </body>
 
 </html>
