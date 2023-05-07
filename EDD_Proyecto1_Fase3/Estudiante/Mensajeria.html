@@ -104,8 +104,46 @@
                     <div class="container-fluid pt-4 px-4">
                       <div
                         class="container-fluid pt-4 px-4">
-                        <!-- Image tag -->
-                        <img src="" alt="Mensajeria :D" id="image">
+                        <!-- Tag de imagenes-->
+
+                        <div class="lg:pl-72">
+                            <main class="py-10">
+                              <!-- Chats-->
+                              <div class="flex h-screen">
+                                <div class="w-2/6 bg-gray-200 p-4 rounded-md">
+                                  <!-- List of chats -->
+                                  <!-- Title -->
+                                  <div class="p-2 mb-2 bg-success text-white text-uppercase text-center">Contactos Disponibles</div>
+                                  <!-- Separator -->
+                                  <div class="border-b border-gray-300 mb-3"></div>   
+                                  <!-- List of chats -->
+                                  <div class="table table-dark">
+                                    <div class="border rounded p-4 pb-0 mb-4">
+                                      <div class="p-4" id="chat-container">
+                                        
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="flex-1 p-4">
+                                  <!-- Current chat -->
+                                  <div class="border-b-2 pb-4">
+                                    <div class="p-2 mb-2 bg-success text-white text-uppercase text-center" id="title-chat">Mandar Mensaje...</div>
+                    
+                                    <div class="mb-4" id="chat-messages">
+                                      <!-- Message container -->
+                                    </div>
+                                    <form class="flex items-center" id="send-message">
+                                      <input type="text" id="message" class="form-control" placeholder="Escribe un mensaje...">
+                                      <button type="submit" class="btn btn-light rounded-pill m-2">Enviar</button>
+                                    </form>
+                                  </div>
+                                </div>
+                                </div>
+                              </div>
+                            </main>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -137,7 +175,7 @@
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
     <script>
-        var estudiantelog = localStorage.getItem("EstudianteActual");
+        var estudiantelog = localStorage.getItem("currentUser");
         let usuario = JSON.parse(estudiantelog);
         
         let carnetEl = document.createElement("h6");
@@ -149,7 +187,8 @@
         document.getElementById("nombre").appendChild(nombreEl);
       </script>
         <script src="./usuario.js" type="module"></script>
-        <script src="../Estudiante/bitacora.js" type="module"></script>
+        
+        <script src="./mensajeria.js" type="module"></script>
 </body>
 
 </html>

@@ -1,6 +1,6 @@
 //Importaciones
-import { N_arioTree } from "./nodo_Nario.js";
-import { CircularLinkedList } from "./ListaCircular.js";
+import { arbol_Nario } from "./nodo_Nario.js";
+import { listaCircular } from "./ListaCircular.js";
 export class userStudent {
   constructor(name, carnet, password, root_file) {
     this.name = name;
@@ -8,8 +8,8 @@ export class userStudent {
     this.password = password;
     this.root_file = root_file;
     // Implementando el arbol Nario y ListaCircular 
-    this.directories = new N_arioTree();
-    this.binnacle = new CircularLinkedList();
+    this.directories = new arbol_Nario();
+    this.binnacle = new listaCircular();
   }
 }
 // Nodo del Arbol 
@@ -17,216 +17,212 @@ export class Node {
   constructor(value, student) {
     this.value = value;
     this.student = student;
-    this.izquierda = null;
-    this.derecha = null;
-    this.altura = 1;
+    this.left = null;
+    this.right = null;
+    this.height = 1;
     this.balance_factor = 0;
   }
 }
 
 export class AVLTree {
   constructor() {
-    this.raiz = null;
+    this.root = null;
   }
 
   // Retorna altura del arbol 
-  altura(raiz) {
-    return raiz === null ? 0 : raiz.altura;
+  height(root) {
+    return root === null ? 0 : root.height;
   }
 
   //Retorna el factor de balance 
-  balanceoF(raiz) {
-    return raiz === null ? 0 : this.altura(raiz.derecha) - this.altura(raiz.izquierda);
+  balanceFactor(root) {
+    return root === null ? 0 : this.height(root.right) - this.height(root.left);
   }
 
-  // Rota a la izquierda simple
-  rotarIzquierda(raiz) {
-    let raiz_D = raiz.derecha;
-    let raiz_hijo_I = raiz_D.izquierda;
-    raiz_D.izquierda = raiz;
-    raiz.derecha = raiz_hijo_I;
+  // Rotación simple a la izquierda
+  rotateLeft(root) {
+    let root_right = root.right;
+    let root_child_left = root_right.left;
+    root_right.left = root;
+    root.right = root_child_left;
     // Cambia la Altura
-    raiz.altura = 1 + Math.max(this.altura(raiz.izquierda), this.altura(raiz.derecha));
-    raiz_D.altura =
-      1 + Math.max(this.altura(raiz_D.izquierda), this.altura(raiz_D.derecha));
+    root.height = 1 + Math.max(this.height(root.left), this.height(root.right));
+    root_right.height =
+      1 + Math.max(this.height(root_right.left), this.height(root_right.right));
+    root.balance_factor = this.balanceFactor(root);
 
-      raiz.balance_factor = this.balanceoF(raiz);
+    root_right.balance_factor = this.balanceFactor(root_right);
 
-    raiz_D.balance_factor = this.balanceoF(raiz_D);
-
-    return raiz_D;
+    return root_right;
   }
-
-  rotarDerecha(raiz) {
-    let root_left = raiz.izquierda;
-    let root_child_right = root_left.derecha;
-    root_left.derecha = raiz;
-    raiz.izquierda = root_child_right;
-
-    raiz.altura = 1 + Math.max(this.altura(raiz.izquierda), this.altura(raiz.derecha));
-    root_left.altura =
-      1 + Math.max(this.altura(root_left.izquierda), this.altura(root_left.derecha));
-
-      raiz.balance_factor = this.balanceoF(raiz);
-
-    root_left.balance_factor = this.balanceoF(root_left);
-
+  // rotacion simple a la derecha
+  rotateRight(root) {
+    let root_left = root.left;
+    let root_child_right = root_left.right;
+    root_left.right = root;
+    root.left = root_child_right;
+    // cambia la altura
+    root.height = 1 + Math.max(this.height(root.left), this.height(root.right));
+    root_left.height =
+      1 + Math.max(this.height(root_left.left), this.height(root_left.right));
+    root.balance_factor = this.balanceFactor(root);
+    root_left.balance_factor = this.balanceFactor(root_left);
     return root_left;
   }
 
-  insertar_Valor(node, raiz) {
-    if (raiz === null) {
+
+  _insertValue(node, root) {
+    if (root === null) {
       return node;
     } else {
-      if (raiz.value == node.value) {
-        raiz.value = node.value;
-      } else if (node.value < raiz.value) {
-        raiz.izquierda = this.insertar_Valor(node, raiz.izquierda);
+      if (root.value == node.value) {
+        root.value = node.value;
+      } else if (node.value < root.value) {
+        root.left = this._insertValue(node, root.left);
       } else {
-        raiz.derecha = this.insertar_Valor(node, raiz.derecha);
+        root.right = this._insertValue(node, root.right);
       }
     }
+    // modifica la altura de las hojas
+    root.height = 1 + Math.max(this.height(root.left), this.height(root.right));
 
-    raiz.altura = 1 + Math.max(this.altura(raiz.izquierda), this.altura(raiz.derecha));
-    let balance = this.balanceoF(raiz);
-    raiz.balance_factor = balance;
+    let balance = this.balanceFactor(root);
+    root.balance_factor = balance;
 
-    // Rotacion simple a la izquierda 
-    if (balance > 1 && node.value > raiz.derecha.value) {
-      return this.rotarIzquierda(raiz);
+    // rotación simple a la derecha
+    if (balance > 1 && node.value > root.right.value) {
+      return this.rotateLeft(root);
+    }
+    if (balance < -1 && node.value < root.left.value) {
+      return this.rotateRight(root);
+    }
+    if (balance > 1 && node.value < root.right.value) {
+      root.right = this.rotateRight(root.right);
+      return this.rotateLeft(root);
+    }
+    if (balance < -1 && node.value > root.left.value) {
+      root.left = this.rotateLeft(root.left);
+      return this.rotateRight(root);
     }
 
-    if (balance < -1 && node.value < raiz.izquierda.value) {
-
-      return this.rotarDerecha(raiz);
-    }
-
-    if (balance > 1 && node.value < raiz.derecha.value) {
-      raiz.derecha = this.rotarDerecha(raiz.derecha);
-      return this.rotarIzquierda(raiz);
-    }
-
-    if (balance < -1 && node.value > raiz.izquierda.value) {
-      raiz.izquierda = this.rotarIzquierda(raiz.izquierda);
-      return this.rotarDerecha(raiz);
-    }
-
-    return raiz;
+    return root;
   }
 
 
   insertarValor(value, student) {
-    const nuevoNodo = new Node(value, student);
-    this.raiz = this.insertar_Valor(nuevoNodo, this.raiz);
+    const newNode = new Node(value, student);
+    this.root = this._insertValue(newNode, this.root);
   }
-  
-  buscarEstudiante(value) {
-    let actual = this.raiz;
-    while (actual != null) {
-      if (actual.value == value) {
-        return actual.student;
-      } else if (value < actual.value) {
-        actual = actual.izquierda;
+  // busca y retorna al estudiante
+  searchStudent(value) {
+    let current = this.root;
+    while (current != null) {
+      if (current.value == value) {
+        return current.student;
+      } else if (value < current.value) {
+        current = current.left;
       } else {
-        actual = actual.derecha;
+        current = current.right;
       }
     }
     return null;
   }
 
-  buscarCarnet(value) {
-    let actual = this.raiz;
-    while (actual != null) {
-      if (actual.value == value) {
+  searchCarnet(value) {
+    let current = this.root;
+    while (current != null) {
+      if (current.value == value) {
         return true
-      } else if (value < actual.value) {
-        actual = actual.izquierda;
+      } else if (value < current.value) {
+        current = current.left;
       } else {
-        actual = actual.derecha;
+        current = current.right;
       }
     }
     return false;
   }
 
-  // Actualiza el Estudiante
-  ActualizaEstudiante(value, student) {
-    let actual = this.raiz;
-    while (actual != null) {
-      if (actual.value == value) {
+  // Actualiza el estudiante
+  updateStudent(value, student) {
+    let current = this.root;
+    while (current != null) {
+      if (current.value == value) {
         console.log("Encontrado");
-        actual.student = student;
+        current.student = student;
         return;
-      } else if (value < actual.value) {
-        actual = actual.izquierda;
+      } else if (value < current.value) {
+        current = current.left;
       } else {
-        actual = actual.derecha;
+        current = current.right;
       }
     }
     return null;
   }
   
 
-  // Vacia el Arbol 
-  borrarTodo() {
-    this.raiz = null;
+  //elimina el arbol 
+  deleteAll() {
+    this.root = null;
   }
   
-  graphizAVL() {
+  createGraphvizCode() {
     let texto = "digraph G {\n";
 
-    // Atributos de graphiz 
+    // Añade los atributos de graphiz
     texto += "  node [shape=circle, color=skyblue, fontcolor=white, style=filled];\n";
     texto += "  edge [arrowsize=1.0, color=green];\n";
     texto += "  graph [bgcolor=lightgrey];\n";
-
-    function agregarNodo(node) {
+    function addNode(node) {
       if (node != null) {
         let nodeLabel = node.value.toString();
         let student = node.student;
-        texto += `  ${nodeLabel} [label="${nodeLabel} \\n ${student.name} \\n Altura:${node.altura}"];\n`;
-        if (node.izquierda != null) {
-          texto += `  ${nodeLabel} -> ${node.izquierda.value};\n`;
-          agregarNodo(node.izquierda);
+        texto += `  ${nodeLabel} [label="${nodeLabel} \\n ${student.name} \\n Altura:${node.height}"];\n`;
+        if (node.left != null) {
+          texto += `  ${nodeLabel} -> ${node.left.value};\n`;
+          addNode(node.left);
         }
-        if (node.derecha != null) {
-          texto += `  ${nodeLabel} -> ${node.derecha.value};\n`;
-          agregarNodo(node.derecha);
+        if (node.right != null) {
+          texto += `  ${nodeLabel} -> ${node.right.value};\n`;
+          addNode(node.right);
         }
       }
     }
 
-    agregarNodo(this.raiz);
+
+    addNode(this.root);
 
     texto += "}";
 
     return texto;
   }
-  inOrder(raiz) {
+
+  inOrder(root) {
     let list = [];
-    if (raiz != null) {
-      list = list.concat(this.inOrder(raiz.izquierda));
-      list.push(raiz);
-      list = list.concat(this.inOrder(raiz.derecha));
+    if (root != null) {
+      list = list.concat(this.inOrder(root.left));
+      list.push(root);
+      list = list.concat(this.inOrder(root.right));
     }
     return list;
   }
-  preOrder(raiz) {
+
+  preOrder(root) {
     let list = [];
-    if (raiz != null) {
-      list.push(raiz);
-      list = list.concat(this.preOrder(raiz.izquierda));
-      list = list.concat(this.preOrder(raiz.derecha));
+    if (root != null) {
+      list.push(root);
+      list = list.concat(this.preOrder(root.left));
+      list = list.concat(this.preOrder(root.right));
     }
     return list;
   }
-  postOrder(raiz) {
+
+  postOrder(root) {
     let list = [];
-    if (raiz != null) {
-      list = list.concat(this.postOrder(raiz.izquierda));
-      list = list.concat(this.postOrder(raiz.derecha));
-      list.push(raiz);
+    if (root != null) {
+      list = list.concat(this.postOrder(root.left));
+      list = list.concat(this.postOrder(root.right));
+      list.push(root);
     }
     return list;
   }
-  
 }

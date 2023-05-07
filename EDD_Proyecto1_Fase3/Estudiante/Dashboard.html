@@ -37,7 +37,6 @@
         <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-secondary navbar-dark">
-              <h6 id="userTitle" class="text-black group flex gap-x-3 rounded-md p-2 text-xl leading-6 font-[500]"></h6>
                 <a href="Dashboard.html"  class="navbar-brand mx-4 mb-3">
                     <h3 class="text-primary"><i class="fa fa-graduation-cap"></i>EDD GoDrive</h3>
                 </a>
@@ -57,7 +56,6 @@
                     <a href="BitacoraEstudiante.html" class="nav-item nav-link"><i class="fa fa-laptop me-2"></i>Bitácora</a>
                     <a href="ReporteCarpeta.html" class="nav-item nav-link"><i class="fa fa-folder"></i>Reporte Carpetas</a>
                     <a href="ReporteArchivos.html" class="nav-item nav-link"><i class="fa fa-file"></i>Reporte Archivos</a>
-                    <!-- Fase 3 -->
                     <a href="Mensajeria.html" class="nav-item nav-link"><i class="fa fa-icons"></i>Mensajeria</a>
                     <a href="ReporteGrafo.html" class="nav-item nav-link"><i class="fa fa-code-branch"></i>Grafo Carpeta</a>
                 </div>
@@ -157,16 +155,15 @@
               <!-- Separator -->
               <div class="border-t border-white"></div>
               <br>
-              <div class="p-2 mb-2 bg-warning text-dark text-center">Coloca un permiso</div>
-                <label for="text" class="block text-sm font-medium leading-6 pl-1 text-white">Nombre del archivo</label>
+                <label for="text" class="block text-sm font-medium leading-6 pl-1 text-white">Ingresa tu carnet</label>
                 <div class="mt-2">
-                  <input type="text" name="email" id="nameFile" class="form-control bg-dark border-0" placeholder="Ingresa el Carné a otorgar Permiso">
+                  <input type="text" name="email" id="nameFile" class="form-control bg-dark border-0" placeholder="Ingresa tu carnet">
                 </div>
 
               <br>
-                <label for="text" class="block text-sm font-medium leading-6 pl-1 text-white">Carnet</label>
+                <label for="text" class="block text-sm font-medium leading-6 pl-1 text-white">Confirma tu carnet</label>
                 <div class="mt-2">
-                  <input type="text" name="email" id="carnetFile"  class="form-control bg-dark border-0"placeholder="Ingresa tu Carnet">
+                  <input type="text" name="email" id="carnetFile"  class="form-control bg-dark border-0"placeholder="Ingresa tu carnet de nuevo">
                 </div>
                     
                 <label for="text" class="block text-sm font-medium leading-6 pl-1 text-white" >Permiso</label>
@@ -250,8 +247,9 @@
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
     <script src="../index.js" type="module"></script>
+  
     <script>
-        var estudiantelog = localStorage.getItem("EstudianteActual");
+        var estudiantelog = localStorage.getItem("currentUser");
         let usuario = JSON.parse(estudiantelog);
         
         let carnetEl = document.createElement("h6");

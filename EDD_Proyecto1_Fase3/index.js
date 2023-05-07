@@ -1,44 +1,55 @@
-//Importaciones Realizadas 
+// Importaciones
 import { AVLTree } from "./JavaScript/AVL.js";
+import { HashTable } from "./JavaScript/Hash.js";
 const AVLTreeJSon = localStorage.getItem("studentTreeAVL");
+import { decryptPassword } from "./JavaScript/encriptador.js";
 const tree = JSON.parse(AVLTreeJSon);
+// Parsea el arbol 
 const studentsAVL = new AVLTree();
-studentsAVL.raiz = tree;
-
-// Obtiene el form de Login
+studentsAVL.root = tree;
+// Obteniendo form
 const form = document.getElementById("FormInicio");
-
-// LLama la funcion en el html
+// Funcionalidad del Modulo
 form.addEventListener("submit", (event) => {
   event.preventDefault();
-
-  const usuario = document.getElementById("floatingInput").value;
+  const username = document.getElementById("floatingInput").value;
   const password = document.getElementById("floatingPassword").value;
-
   const user = {
-    usuario,
+    username,
     password,
   };
-  if (user.usuario === "admin" && user.password === "admin") {
-    alert("Bienvenido Administrador ;)");
-    window.location.href = "./EDD_Proyecto1_Fase2/Administrador/Carga.html";
+  // Si el usuario es Administrador
+  if (user.username === "admin" && user.password === "admin") {
+    // Redirige a Carga admin
+    window.location.href = "./EDD_Proyecto1_Fase3/Administrador/Carga.html";
   } else {
-    const student = studentsAVL.buscarEstudiante(user.usuario);
-    if (student) {
-      if (localStorage.getItem("EstudianteActual")) {
-        localStorage.removeItem("EstudianteActual");
+    // Si el usuario es de tipo estudiante obtiene la tabla hash 
+    const hashTableFill = JSON.parse(localStorage.getItem("hashTable"));
+
+    if(hashTableFill){
+      const newHashTable = new HashTable();
+      newHashTable.capacity = hashTableFill.capacity;
+      newHashTable.util = hashTableFill.util;
+      newHashTable.table = hashTableFill.table;
+      // Itera tabla hash para obtener estudiante
+      const userFound = newHashTable.searchUser(user.username);
+      if(!userFound) {
+        alert("Usuario no encontrado");
+      }else {
+        // Desencripta la contraseña
+        decryptPassword(userFound.password).then((decryptedPassword) => {
+          if (decryptedPassword === user.password) {
+            // Guarda Usuario en Local Storage
+            localStorage.setItem("user", JSON.stringify(userFound));
+            localStorage.setItem("currentUser", JSON.stringify(userFound.user));
+            // Redirige a Estudiante
+            window.location.href = "./EDD_Proyecto1_Fase3/Estudiante/Dashboard.html";
+            alert("Bienvenido Compañeros");
+          } else {
+            alert("Contraseña incorrecta");
+          }
+        });
       }
-      if (student.password === user.password) {
-        localStorage.setItem("EstudianteActual", JSON.stringify(student));
-        alert("Bienvenido Compañero: "+student.name);
-        window.location.href = "./EDD_Proyecto1_Fase2/Estudiante/Dashboard.html";
-      } else {
-        alert("Usuario o contraseña incorrectos");
-        form.reset();
-      }
-    } else {
-      alert("Usuario o contraseña incorrectos");
-      form.reset();
     }
   }
-});  
+});

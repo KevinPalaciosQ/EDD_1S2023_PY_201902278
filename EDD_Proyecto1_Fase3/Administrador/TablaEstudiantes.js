@@ -1,22 +1,19 @@
-// Importaciones utilizadas
+// importa el arbol AVL 
 import { AVLTree  } from "../JavaScript/AVL.js";
 
-// Obteniendo localStorage
+// Obtiene el arbol del local storage
 const AVLTreeJSon = localStorage.getItem("studentTreeAVL");
-// Parsea el arbol 
+// parsea el arbol
 const tree = JSON.parse(AVLTreeJSon);
-
 const studentsAVL = new AVLTree();
+studentsAVL.root = tree;
 
-studentsAVL.raiz = tree;
-
-// Obteniendo la tabla
+// obtiene la tabla
 const tableBody = document.querySelector("#table-students tbody");
 
-// InOrderTable
+// coloca por default la tabla inorder 
 const setInOrderTable = () => {
-  const listInOrder = studentsAVL.inOrder(studentsAVL.raiz);  
-  
+  const listInOrder = studentsAVL.inOrder(studentsAVL.root);  
   listInOrder.forEach((node,index) => {
     const student = node.student;
     const row = document.createElement("tr");
@@ -29,22 +26,21 @@ const setInOrderTable = () => {
   });
 }
 
-// inOrder 
+// setea en inOrder la tabla 
 const setInOrderTableButton = document.querySelector("#b-inOrder");
 setInOrderTableButton.addEventListener("click", () => {
-
   tableBody.innerHTML = "";
 
   setInOrderTable();
 });
+// setea en preOrder la tabla 
 
-// preOrder
 const setPreOrderTableButton = document.querySelector("#b-preOrder");
 setPreOrderTableButton.addEventListener("click", () => {
 
   tableBody.innerHTML = "";
 
-  const listPreOrder = studentsAVL.preOrder(studentsAVL.raiz);
+  const listPreOrder = studentsAVL.preOrder(studentsAVL.root);
   listPreOrder.forEach((node,index) => {
     const student = node.student;
     const row = document.createElement("tr");
@@ -57,13 +53,12 @@ setPreOrderTableButton.addEventListener("click", () => {
   });
 });
 
-
+// setea en preOrder la tabla 
 const setPostOrderTableButton = document.querySelector("#b-postOrder");
 setPostOrderTableButton.addEventListener("click", () => {
-
+  // Limpia la tabla 
   tableBody.innerHTML = "";
-
-  const listPreOrder = studentsAVL.postOrder(studentsAVL.raiz);
+  const listPreOrder = studentsAVL.postOrder(studentsAVL.root);
   listPreOrder.forEach((node,index) => {
     const student = node.student;
     const row = document.createElement("tr");
@@ -76,6 +71,4 @@ setPostOrderTableButton.addEventListener("click", () => {
   });
 });
 
-
-// call 
 setInOrderTable();

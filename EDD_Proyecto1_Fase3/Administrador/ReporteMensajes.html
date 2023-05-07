@@ -65,8 +65,9 @@
                     <a href="Carga.html" class="nav-item nav-link"><i class="fas fa-file"></i>Carga Masiva</a>
                     <a href="Tabla.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Mostrar Alumnos</a>
                     <a href="Arbol.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Árbol Estudiantes</a>
-                    <a href="TablaPermisos.html" class="nav-item nav-link"><i class="fa fa-table"></i>Permisos</a>
-                    <a href="ReporteMensajes.html" class="nav-item nav-link active"><i class="fa fa-receipt"></i>Reporte Mensajes</a>
+                    <a href="TablaPermisos.html" class="nav-item nav-link"><i class="fa fa-coins"></i>Transferencia</a>
+                    <a href="ReporteMensajes.html" class="nav-item nav-link active"><i class="fa fa-receipt"></i>Datos Hash</a>
+                    <a href="Bloques.html" class="nav-item nav-link"><i class="fa fa-blog"></i>Reporte Bloques</a>
                 </div>
             </nav>
         </div>
@@ -106,20 +107,52 @@
                     </div>
                 </div>
             </div>
-            <!-- Other Elements End -->
-            <div class="p-2 mb-2 bg-success text-white text-uppercase text-center">Reporte de Mensajes</div>
-            <h2 class="text"></h2>
-            <div class="container-fluid pt-4 px-4">
-                <div class="row vh-100 bg-secondary rounded align-items-center justify-content-center mx-0">
-                    <div class="container">
-                        <div>
-                            <input type="file" id="input" multiple />
-                        </div>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon1" onclick="busqueda()">Ingresa tu carnet</button>
-                        <input type="text" id="valor" class="form-control" placeholder="Busca tu carnet" aria-label="Example text with button addon" aria-describedby="button-addon1">
-                        </div>
-                </div>
-            </div>
+    <!-- Table layout -->
+    <div
+      class="flex flex-col items-center justify-start w-full  h-full px-4 py-6 space-y-4 bg- border-2 border-gray-300 rounded-md shadow-md">
+      <!-- Table  -->
+      <table class="table table-dark" id="table-students">
+        <thead>
+          <tr>
+            <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">No.</th>
+            <th scope="col" class="py-3.5 px-3 text-left text-sm font-semibold text-gray-900">Carnet</th>
+            <th scope="col" class="py-3.5 px-3 text-left text-sm font-semibold text-gray-900">Nombre</th>
+            <th scope="col" class="py-3.5 px-3 text-left text-sm font-semibold text-gray-900">Contraseña</th>
+          </tr>
+        </thead>
+        <tbody class=" divide-gray-200">
+          
+          <!-- More people... -->
+        </tbody>
+      </table>
+    </div>
+    <!-- Second title -->
+    <div class="flex flex-row items-center justify-between w-full px-4 py-6 space-x-4 bg-border-2 border-gray-300 rounded-md shadow-md">
+      <!-- Title -->
+      <div class="flex flex-col items-start justify-start w-full h-full space-y-2">
+
+      </div>
+    </div>
+        <!-- Table layout -->
+        <div
+        class="flex flex-col items-center justify-start w-full  h-full px-4 py-6 space-y-4 bg border-2 border-gray-300 rounded-md shadow-md">
+        <!-- Table  -->
+        <table class="table table-dark" id="table-permissions">
+          <thead>
+            <tr>
+              <th scope="col" class="py-3.5 px-3 text-left text-sm font-semibold text-gray-900">Propietario</th>
+              <th scope="col" class="py-3.5 px-3 text-left text-sm font-semibold text-gray-900">Destino</th>
+              <th scope="col" class="py-3.5 px-3 text-left text-sm font-semibold text-gray-900">Ubicación</th>
+              <th scope="col" class="py-3.5 px-3 text-left text-sm font-semibold text-gray-900">Archivo</th>
+              <th scope="col" class="py-3.5 px-3 text-left text-sm font-semibold text-gray-900">Permisos</th>
+            </tr>
+          </thead>
+          <tbody class=" divide-gray-200">
+            
+            <!-- More people... -->
+          </tbody>
+        </table>
+      </div>
 
 
  
@@ -141,8 +174,8 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
-    <script src="../JavaScript/TablaHash.js" type="module"></script>
-    <script src="../JavaScript/sha256.js" type="module"></script>
+    <script src="../JavaScript/AVL.js" type="module"></script>
+    <script src="./tablaHash.js" type="module"></script>
 </body>
 
 </html>

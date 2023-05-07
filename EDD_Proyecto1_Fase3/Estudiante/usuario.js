@@ -1,63 +1,58 @@
-// Importaciones utilizadas 
-import { AVLTree,Node } from "../JavaScript/AVL.js";
-import { N_arioTree } from "../JavaScript/nodo_Nario.js";
-import { CircularLinkedList, info } from "../JavaScript/ListaCircular.js";
-import { SparseMatrix } from "../JavaScript/matrizDispersa.js";
 
+// Importaciones Realizadas
+import { AVLTree,Node } from "../JavaScript/AVL.js";
+import { arbol_Nario } from "../JavaScript/nodo_Nario.js";
+import { listaCircular, info } from "../JavaScript/ListaCircular.js";
+import { MatrizDispersa } from "../JavaScript/matrizDispersa.js";
+
+
+// encuentra boton de entrada
 let globalPath = "";
 const searchFile = document.getElementById("search-file");
 const creatBtn = document.getElementById("create-btn");
-
 const deleteBtn = document.getElementById("delete-btn");
 const uploadFile = document.getElementById("upload-btn");
 const setPermissionsBtn = document.getElementById("set-permissions-btn");
 
-// Da los permisos 
+// Dar permisos
 setPermissionsBtn.addEventListener("click", function () {
-  // Obtiene inputs de las plantillas 
+  //Obteniendo inputs
   const file_name = document.getElementById("nameFile").value;
   const carnet = document.getElementById("carnetFile").value;
   const permission = document.getElementById("permissionFile").value;
-  // Valida los inputs
+  // Valindando los inputs
   if (file_name === "" || carnet === "" || permission === "")
     return alert("Todos los campos son obligatorios");
-
+  // valida la existencia del carnet en el arbol avl
   const AVLTreeJSon = JSON.parse(localStorage.getItem("studentTreeAVL"));
-
+  // parsea el arbol AVL 
   const studentsAVL = new AVLTree();
-
-  studentsAVL.raiz = AVLTreeJSon;
-  if (!studentsAVL.buscarCarnet(carnet))
-    return alert("No se encontró Carnet :c");
- 
+  studentsAVL.root = AVLTreeJSon;
+  if (!studentsAVL.searchCarnet(carnet))
+    return alert("El carnet no existe en la base de datos");
+  // Obtiene estudiante actual
   const user = getCurrentUser();
-  const directories = user.directories; 
-  const currentDirectory = directories.currentDirectory(globalPath); 
-
-  const matrix = currentDirectory.matrix;
+  const directories = user.directories; // obtiene los directorios
+  const DirectorioActual = directories.DirectorioActual(globalPath); 
+  const matrix = DirectorioActual.matrix;
   matrix.setPermission(file_name, carnet, permission);
-
+  // actualizamatriz
   const matrixSerialized = matrix.toJSON();
-  currentDirectory.matrix = matrixSerialized;
-
-  directories.updateDirectory(globalPath, currentDirectory);
-
+  DirectorioActual.matrix = matrixSerialized;
+  // actualiza directorio
+  directories.actualizarDirectorio(globalPath, DirectorioActual);
   user.directories = directories;
-
   const binnacleList = user.binnacle.serialize();
-
   user.binnacle = binnacleList;
-
-  localStorage.setItem("EstudianteActual", JSON.stringify(user));
-
+  localStorage.setItem("currentUser", JSON.stringify(user));
   alert("Se otorgo permiso correctamente");
-
+  // resetea los inputs
   document.getElementById("nameFile").value = "";
   document.getElementById("carnetFile").value = "";
   document.getElementById("permissionFile").value = "";
 });
 
-// Actualiza el documento
+// actualiza el archivo
 const inputElement = document.getElementById("file-upload");
 inputElement.addEventListener("change", handleFiles, false);
 let file_name_input = "";
@@ -73,50 +68,41 @@ function handleFiles() {
 function onReaderLoad(event) {
   base64String = event.target.result;
 }
-// Guarda el archivo en la matriz 
+//guarda el archivo en la matriz
 uploadFile.addEventListener("click", function () {
-  // Obtiene el estudiante actual 
+  // Obtiene estudiante actual
   const user = getCurrentUser();
   const directories = user.directories; 
-  const currentDirectory = directories.currentDirectory(globalPath); 
-
-  const matrix = currentDirectory.matrix;
-  matrix.insertFile(file_name_input, 1, "data");
-
+  const DirectorioActual = directories.DirectorioActual(globalPath); 
+  const matrix = DirectorioActual.matrix;
+  matrix.insertFile(file_name_input, 1, base64String);
   user.binnacle.append(new info(`Se creo el archivo ${file_name_input}`));
-
     const binnacleList = user.binnacle.serialize();
-
     user.binnacle = binnacleList;
-
+  // actualiza la matriz
   const matrixSerialized = matrix.toJSON();
-  currentDirectory.matrix = matrixSerialized;
-
-  directories.updateDirectory(globalPath, currentDirectory);
-
+  DirectorioActual.matrix = matrixSerialized;
+  directories.actualizarDirectorio(globalPath, DirectorioActual);
   user.directories = directories;
-  // Actualiza el estudiante actual 
-  localStorage.setItem("EstudianteActual", JSON.stringify(user));
+  localStorage.setItem("currentUser", JSON.stringify(user));
   searchFile.dispatchEvent(new Event("input"));
 });
 
-// Busca en los directorios 
+// busca en los directorios
 searchFile.addEventListener("input", function (event) {
   const path = event.target.value;
   globalPath = path;
-
   document.getElementById("title-th").innerHTML =
     "Directorios y Archivos de " + '"' + path + '"';
-
+  // obtiene la tabla 
   const table = document.getElementById("table-body");
-
+  // limpia la tabla 
   table.innerHTML = "";
-
+  // obtiene el estudiante actual 
   const user = getCurrentUser();
-  const directories = user.directories.showDirectories(path);
-
+  const directories = user.directories.mostrarDirectorios(path);
+  // si el directorio existe
   if (directories.length > 0) {
-
     directories.forEach((di) => {
       const row = document.createElement("tr");
       row.innerHTML = `
@@ -130,17 +116,16 @@ searchFile.addEventListener("input", function (event) {
       table.appendChild(row);
     });
   }
-
+  // añade los archivos 
   try {
     const directoriesMatrix = user.directories; 
-    const currentDirectory = directoriesMatrix.currentDirectory(globalPath);
-    const matrix = currentDirectory.matrix; 
+    const DirectorioActual = directoriesMatrix.DirectorioActual(globalPath);
+    const matrix = DirectorioActual.matrix; 
     const fileList = matrix.makeList();
     if (fileList.length > 0) {
-
+      // añade los archivos a la tabla 
       fileList.forEach((file) => {
         const row = document.createElement("tr");
-
         if (file.endsWith(".jpg") || file.endsWith(".png") || file.endsWith(".jpeg")) {
           row.innerHTML = `
             <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
@@ -165,33 +150,31 @@ searchFile.addEventListener("input", function (event) {
       });
     }
   } catch (error) {
-
   }
 });
 
-
+// añade le directorio y lo guarda en el local storage
 creatBtn.addEventListener("click", function () {
   const newDiretory = document.getElementById("new-directory").value;
   if (newDiretory === "")
-    return alert("Por favor no olvides Nombrar la carpeta");
+    return alert("El nombre de la carpeta no puede estar vacio");
   const path = globalPath;
   const user = getCurrentUser();
   user.directories.insertarValor(path, newDiretory);
   user.binnacle.append(new info(`Se creo la carpeta ${newDiretory}`));
   const binnacleList = user.binnacle.serialize();
   user.binnacle = binnacleList;
-  localStorage.setItem("EstudianteActual", JSON.stringify(user));
+  localStorage.setItem("currentUser", JSON.stringify(user));
   document.getElementById("new-directory").value = "";
   searchFile.dispatchEvent(new Event("input"));
 });
 
-// Borra carpetas
+//elimina el directorio 
 deleteBtn.addEventListener("click", function () {
-
+  // Obtiene el nombre del directorio 
   const newDiretory = document.getElementById("new-directory").value;
   if (newDiretory === "")
-    return alert("Por favor no olvides Nombrar la carpeta");
- 
+    return alert("Por favor nombra la carpeta");
   const path = globalPath;
   const user = getCurrentUser();
   let completePath = "";
@@ -200,22 +183,22 @@ deleteBtn.addEventListener("click", function () {
   } else {
     completePath = `${path}/${newDiretory}`;
   }
-  user.directories.deleteDirectory(completePath);
+  user.directories.eliminarDirectorio(completePath);
   user.binnacle.append(new info(`Se eliminó la carpeta: ${newDiretory}`));
   const binnacleList = user.binnacle.serialize();
   user.binnacle = binnacleList;
-  localStorage.setItem("EstudianteActual", JSON.stringify(user));
-
+  //Actualiza al estudiante actual 
+  localStorage.setItem("currentUser", JSON.stringify(user));
   document.getElementById("new-directory").value = "";
   searchFile.dispatchEvent(new Event("input"));
 });
 
-
-const serializeN_ario = (raiz) => {
-  if (raiz) {
-    const NaryTree = Object.assign(new N_arioTree(), raiz);
-    const matrixConverted = serializeMatrix(NaryTree.raiz.matrix);
-    NaryTree.raiz.matrix = matrixConverted;
+// serealiza el N-ario
+const serializeN_ario = (root) => {
+  if (root) {
+    const NaryTree = Object.assign(new arbol_Nario(), root);
+    const matrixConverted = serializeMatrix(NaryTree.root.matrix);
+    NaryTree.root.matrix = matrixConverted;
     const changeNestedMatrix = (node) => {
       if (node) {
         if (node.matrix) {
@@ -230,16 +213,18 @@ const serializeN_ario = (raiz) => {
         }
       }
     };
-    changeNestedMatrix(NaryTree.raiz.first);
+    changeNestedMatrix(NaryTree.root.first);
 
     return NaryTree;
   }
   return null;
 };
 
+// serializa la Matriz
 const serializeMatrix = (matrixToParse) => {
   if (matrixToParse) {
-    const matrix = new SparseMatrix();
+    //Si la raiz ser encuentra en el objeto 
+    const matrix = new MatrizDispersa();
     const files = matrixToParse.convertedFiles;
     const permisions = matrixToParse.permisos;
 
@@ -259,28 +244,30 @@ const serializeMatrix = (matrixToParse) => {
   return null;
 };
 
-// Selializa la  CircularLinkedList
-const serializeCircularLinkedList = (raiz) => {
-  if (raiz) {
-
-    if (Array.isArray(raiz)) {
-      const circularLinkedList = new CircularLinkedList();
-      raiz.forEach((node) => {
+// serealiza la lista circular
+const serializeCircularLinkedList = (root) => {
+  if (root) {
+    // si raiz esta en el aArray
+    if (Array.isArray(root)) {
+      const circularLinkedList = new listaCircular();
+      root.forEach((node) => {
         circularLinkedList.append(node);
       });
       return circularLinkedList;
     } else {
-      const circularLinkedList = Object.assign(new CircularLinkedList(), raiz);
+      const circularLinkedList = Object.assign(new listaCircular(), root);
       return circularLinkedList;
     }
   }
   return null;
 };
 
-// Cambia actual en localstorage
+// cambia el estudiante actual en el local storage
 export const getCurrentUser = () => {
-  const currentUser = JSON.parse(localStorage.getItem("EstudianteActual"));
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  // serializa el arbol N-ario
   currentUser.directories = serializeN_ario(currentUser.directories);
+  // serializa la lista circular 
   currentUser.binnacle = serializeCircularLinkedList(currentUser.binnacle);
   return currentUser;
 };

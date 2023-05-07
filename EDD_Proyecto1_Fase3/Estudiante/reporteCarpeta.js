@@ -1,26 +1,24 @@
-import { N_arioTree } from "../JavaScript/nodo_Nario.js";
+import { arbol_Nario } from "../JavaScript/nodo_Nario.js";
 // Coloca la imagen
 const graph = () => {
-  // Obtiene al usuario del  localStorage
-  const user = JSON.parse(localStorage.getItem("EstudianteActual"));
+  // obtiene el usuario de  local storage
+  const user = JSON.parse(localStorage.getItem("currentUser"));
 
-  // Parsea los directorios en N-ario
-  const NewTree = new N_arioTree();
-  NewTree.raiz = user.directories.raiz;
+  // parsea los directorios a N-ario
+  const NewTree = new arbol_Nario();
+  NewTree.root = user.directories.root;
   NewTree.nodes_created = user.directories.nodes_created;
   
-  return NewTree.graphTree()
+  return NewTree.graficarArbol()
 };
 
-// Obtiene la imagen de .src
+
 const refreshImage = () => {
   const url = "https://quickchart.io/graphviz?graph=";
   const body = graph();
-
   const image = document.getElementById("image");
-
   image.src = url + body;
 };
 
-
+// ejecuta la función
 refreshImage();

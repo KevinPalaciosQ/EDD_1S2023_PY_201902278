@@ -21,8 +21,8 @@ altura: Obtiene la altura del árbol
 
 ``` javascript
 //Importaciones
-import { N_arioTree } from "./nodo_Nario.js";
-import { CircularLinkedList } from "./ListaCircular.js";
+import { arbol_Nario } from "./nodo_Nario.js";
+import { listaCircular } from "./ListaCircular.js";
 export class userStudent {
   constructor(name, carnet, password, root_file) {
     this.name = name;
@@ -30,8 +30,8 @@ export class userStudent {
     this.password = password;
     this.root_file = root_file;
     // Implementando el arbol Nario y ListaCircular 
-    this.directories = new N_arioTree();
-    this.binnacle = new CircularLinkedList();
+    this.directories = new arbol_Nario();
+    this.binnacle = new listaCircular();
   }
 }
 // Nodo del Arbol 
@@ -394,7 +394,7 @@ export class info {
     }
   }
   
-  export class CircularLinkedList {
+  export class listaCircular {
     constructor() {
       this.cabeza = null;
       this.cola = null;
@@ -463,13 +463,13 @@ export class info {
 ## __nodo_Nario.js__
    Es una implementación de un árbol n-ario que se utiliza para modelar un sistema de directorios similar al de un sistema operativo. El árbol se utiliza para organizar los directorios de forma jerárquica, donde cada nodo representa un directorio y puede tener varios hijos (subdirectorios).
 
-Tiene tres clases: "nodoNario" que define los nodos del árbol, "N_arioTree" que define el árbol y proporciona métodos para insertar nodos y buscar directorios, y "SparseMatrix" que es una clase auxiliar para crear una matriz dispersa.
+Tiene tres clases: "nodoNario" que define los nodos del árbol, "arbol_Nario" que define el árbol y proporciona métodos para insertar nodos y buscar directorios, y "MatrizDispersa" que es una clase auxiliar para crear una matriz dispersa.
 
-El método "searchDirectory" busca un directorio en el árbol y devuelve un código que indica si el directorio existe, no existe, si es inválido o si es una copia de otro directorio. El método "insertarValor" inserta un nuevo directorio en el árbol si no existe, si ya existe, crea una copia del directorio con un nombre diferente. El método "graphTree" genera un string en formato DOT para representar el árbol en un gráfico.
+El método "buscarDirectorio" busca un directorio en el árbol y devuelve un código que indica si el directorio existe, no existe, si es inválido o si es una copia de otro directorio. El método "insertarValor" inserta un nuevo directorio en el árbol si no existe, si ya existe, crea una copia del directorio con un nombre diferente. El método "graficarArbol" genera un string en formato DOT para representar el árbol en un gráfico.
 
 En general, el código se encarga de mantener la estructura jerárquica de los directorios y proporciona una forma eficiente de buscar y agregar directorios en el árbol.
 ``` javascript
-import { SparseMatrix } from "./matrizDispersa.js";
+import { MatrizDispersa } from "./matrizDispersa.js";
 
 export class nodoNario {
   constructor(value, id) {
@@ -477,17 +477,17 @@ export class nodoNario {
     this.value = value;
     this.first = null;
     this.id = id;
-    this.matrix = new SparseMatrix(value);
+    this.matrix = new MatrizDispersa(value);
   }
 }
 
-export class N_arioTree {
+export class arbol_Nario {
   constructor() {
     this.raiz = new nodoNario("/", 0);
     this.nodes_created = 1;
   }
 
-  searchDirectory(new_directory, directory_list) {
+  buscarDirectorio(new_directory, directory_list) {
     if (directory_list[1] === "" && this.raiz.first !== null) {
       let aux = this.raiz.first;
       while (aux) {
@@ -545,7 +545,7 @@ export class N_arioTree {
     }
   }
 
-  insertInOrder(raiz, nuevoNodo) {
+  insertarInOrder(raiz, nuevoNodo) {
     let piv = raiz.first;
     if (nuevoNodo.value < raiz.first.value) {
       nuevoNodo.next = raiz.first;
@@ -570,7 +570,7 @@ export class N_arioTree {
     }
   }
 
-  insertChildren(new_directory, directory_list) {
+  insertarHijo(new_directory, directory_list) {
 
     const nuevoNodo = new nodoNario(new_directory, this.nodes_created);
     this.nodes_created++;
@@ -580,7 +580,7 @@ export class N_arioTree {
     }
 
     else if (directory_list[1] === "" && this.raiz.first !== null) {
-      this.raiz = this.insertInOrder(this.raiz, nuevoNodo);
+      this.raiz = this.insertarInOrder(this.raiz, nuevoNodo);
     }
 
     else if (directory_list[1] !== "" && this.raiz.first !== null) {
@@ -611,21 +611,21 @@ export class N_arioTree {
       if (aux.first === null) {
         aux.first = nuevoNodo;
       } else {
-        aux = this.insertInOrder(aux, nuevoNodo);
+        aux = this.insertarInOrder(aux, nuevoNodo);
       }
     }
   }
 
   insertarValor(path, new_directory) {
     let directory_list = path.split("/");
-    let directory_exist = this.searchDirectory(new_directory, directory_list);
+    let directory_exist = this.buscarDirectorio(new_directory, directory_list);
     switch (directory_exist) {
       case 1:
         let copyDirectory = `Copia ${new_directory}`;
-        this.insertChildren(copyDirectory, directory_list);
+        this.insertarHijo(copyDirectory, directory_list);
         break;
       case 2:
-        this.insertChildren(new_directory, directory_list);
+        this.insertarHijo(new_directory, directory_list);
         break;
       case 3:
         alert("El directorio no es valido");
@@ -634,16 +634,16 @@ export class N_arioTree {
         alert("El directorio no es valido");
         break;
       case 5:
-        this.insertChildren(new_directory, directory_list);
+        this.insertarHijo(new_directory, directory_list);
         break;
     }
   }
 
-  graphTree() {
+  graficarArbol() {
     let graph = "";
     if (this.raiz !== null) {
       graph = "digraph G {";
-      graph += this.generateGraph(this.raiz);
+      graph += this.generarGrafica(this.raiz);
       graph += "}";
     } else {
       graph = "digraph G { voidTree }";
@@ -651,17 +651,17 @@ export class N_arioTree {
     return graph;
   }
 
-  generateGraph(raiz) {
+  generarGrafica(raiz) {
     let graph = "node[shape=record color=skyblue, fontcolor=white, style=filled]";
     let node = 1;
     let parent = 0;
     graph += "nodo" + parent + '[label="' + this.raiz.value + '"] ';
-    graph += this.nextValues(this.raiz.first, node, parent);
-    graph += this.conections(this.raiz.first, 0);
+    graph += this.valoresSiguientes(this.raiz.first, node, parent);
+    graph += this.conexiones(this.raiz.first, 0);
     return graph;
   }
 
-  nextValues(raiz, node, parent) {
+  valoresSiguientes(raiz, node, parent) {
     let graph = "";
     let aux = raiz;
     let parent_plus = parent;
@@ -673,14 +673,14 @@ export class N_arioTree {
       aux = raiz;
       while (aux) {
         parent_plus++;
-        graph += this.nextValues(aux.first, this.nodes_created, parent_plus);
+        graph += this.valoresSiguientes(aux.first, this.nodes_created, parent_plus);
         aux = aux.next;
       }
     }
     return graph;
   }
 
-  conections(raiz, parent) {
+  conexiones(raiz, parent) {
     let graph = "";
     let aux = raiz;
     if (aux !== null) {
@@ -690,14 +690,14 @@ export class N_arioTree {
       }
       aux = raiz;
       while (aux) {
-        graph += this.conections(aux.first, aux.id);
+        graph += this.conexiones(aux.first, aux.id);
         aux = aux.next;
       }
     }
     return graph;
   }
   
-  deleteDirectory(path) {
+  eliminarDirectorio(path) {
     let directoryList = path.split("/");
     this.nodes_created--;
     if (directoryList.length === 2) {
@@ -716,8 +716,8 @@ export class N_arioTree {
       return;
     }
 
-    let nodeDirectory = this.searchDirectoryValue(directoryList);
-    let parentDirectory = this.searchDirectoryValue(
+    let nodeDirectory = this.buscarValorDirectorio(directoryList);
+    let parentDirectory = this.buscarValorDirectorio(
       directoryList.slice(0, directoryList.length - 1)
     );
 
@@ -745,7 +745,7 @@ export class N_arioTree {
     }
   }
 
-  searchDirectoryValue(directory_list) {
+  buscarValorDirectorio(directory_list) {
     if (directory_list[1] === "" && this.raiz.first !== null) {
       return this.raiz;
     }
@@ -786,18 +786,18 @@ export class N_arioTree {
       }
     }
   }
-  updateDirectory(path, new_directory) {
+  actualizarDirectorio(path, new_directory) {
     let directory_list = path.split("/");
-    let directory_exist = this.searchDirectoryValue(directory_list);
+    let directory_exist = this.buscarValorDirectorio(directory_list);
     if (directory_exist !== null) {
       directory_exist = new_directory;
     } else {
       alert("La ruta no es válida");
     }
   }
-  currentDirectory(path) {
+  DirectorioActual(path) {
     let directory_list = path.split("/");
-    let directory_exist = this.searchDirectoryValue(directory_list);
+    let directory_exist = this.buscarValorDirectorio(directory_list);
     if (directory_exist !== null) {
       return directory_exist;
     } else {
@@ -805,10 +805,10 @@ export class N_arioTree {
     }
   }
 
-  showDirectories(path) {
+  mostrarDirectorios(path) {
     const list_directories = [];
     let directory_list = path.split("/");
-    let directory_exist = this.searchDirectoryValue(directory_list);
+    let directory_exist = this.buscarValorDirectorio(directory_list);
     try {
       if (directory_exist !== null) {
         let aux = directory_exist.first;
@@ -827,9 +827,9 @@ export class N_arioTree {
 ```
 
 ## __matrizDispersa.js__
-El código es una implementación de una matriz dispersa en JavaScript, y se compone de dos clases: "nodeMatrix" y "SparseMatrix".
+El código es una implementación de una matriz dispersa en JavaScript, y se compone de dos clases: "nodeMatrix" y "MatrizDispersa".
 La clase "nodeMatrix" representa un nodo en la matriz y tiene cuatro atributos: "next", "prev", "below" y "above", que son punteros a los nodos adyacentes. Además, tiene los atributos "posX", "posY", "position" y "content" que representan la posición del nodo y su contenido.
-La clase "SparseMatrix" es la clase principal y tiene un atributo llamado "principal" que es el nodo principal de la matriz dispersa. También tiene los atributos "coorX" y "coorY" que se utilizan para llevar un seguimiento de las coordenadas actuales de la matriz.
+La clase "MatrizDispersa" es la clase principal y tiene un atributo llamado "principal" que es el nodo principal de la matriz dispersa. También tiene los atributos "coorX" y "coorY" que se utilizan para llevar un seguimiento de las coordenadas actuales de la matriz.
 La clase tiene varios métodos, entre ellos, "searchR" y "searchC" para buscar nodos por su posición en fila o columna, "insertColumn" e "insertRow" para insertar nuevas columnas o filas en la matriz, y "insertNode" para insertar un nuevo nodo en una posición determinada. También tiene "insertFile" para insertar un nuevo archivo en la matriz y "setPermission" para establecer permisos en un archivo determinado para un usuario específico. Además, tiene "searchX" para buscar un nodo en la matriz por su coordenada en x.
 ``` javascript
 export class nodeMatrix {
@@ -845,7 +845,7 @@ export class nodeMatrix {
   }
 }
 
-export class SparseMatrix {
+export class MatrizDispersa {
   constructor(directory) {
     this.principal = new nodeMatrix(-1, -1, directory, null);
     this.coorX = 0;

@@ -137,7 +137,7 @@
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
     <script>
-        var estudiantelog = localStorage.getItem("EstudianteActual");
+        var estudiantelog = localStorage.getItem("currentUser");
         let usuario = JSON.parse(estudiantelog);
         
         let carnetEl = document.createElement("h6");
@@ -149,7 +149,6 @@
         document.getElementById("nombre").appendChild(nombreEl);
       </script>
         <script src="./usuario.js" type="module"></script>
-        <script src="../Estudiante/bitacora.js" type="module"></script>
 </body>
 
 </html>

@@ -82,14 +82,19 @@
                 <a href="#" class="sidebar-toggler flex-shrink-0">
                     <i class="fa fa-bars"></i>
                 </a>
-                <form class="d-none d-md-flex ms-4">
-                    <input id="search-path" class="form-control bg-dark border-0" type="search" placeholder="Search">
+                <form class="relative flex flex-1" action="#" method="GET">
+                  <label for="search-field" class="sr-only">Search</label>
+                  <input id="search-path"
+                    class="form-control bg-dark border-0"
+                    placeholder="Buscar directorio" type="text" name="search">
                 </form>
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <img class="rounded-circle me-lg-2" src="img/student.png" alt="" style="width: 40px; height: 40px;">
                             <span id="nombre"></span>
+                        
+
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
                             <a href="../../index.html" class="dropdown-item">Log Out</a>
@@ -98,6 +103,8 @@
                 </div>
             </nav>
             <!-- Navbar End -->
+
+
 
             <!-- Centro-->
             <div class="container-fluid pt-4 px-4">
@@ -112,12 +119,10 @@
             <div class="container-fluid pt-4 px-4">
                 <div class="row vh-100 bg-secondary rounded align-items-center justify-content-center mx-0">
                     <div class="col-md-6 text-center">
-                        <img src="" alt="Reporte" id="image">
+                        <img src="" alt="Reporte de Archivos" id="image">
                     </div>
                 </div>
             </div>
-
-
                 <!-- Footer Start -->
                 <div class="container-fluid pt-4 px-4">
                     <div class="bg-secondary rounded-top p-4">
@@ -156,7 +161,7 @@
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
     <script>
-        var estudiantelog = localStorage.getItem("EstudianteActual");
+        var estudiantelog = localStorage.getItem("currentUser");
         let usuario = JSON.parse(estudiantelog);
         
         let carnetEl = document.createElement("h6");
@@ -167,7 +172,8 @@
         nombreEl.innerHTML = `${usuario.name}`;
         document.getElementById("nombre").appendChild(nombreEl);
       </script>
-
+        <script src="../Estudiante/usuario.js" type="module"></script>
+        <script src="../Estudiante/reporteArchivos.js" type="module"></script>
 </body>
 
 </html>

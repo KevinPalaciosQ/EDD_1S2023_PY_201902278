@@ -1,4 +1,4 @@
-import { SparseMatrix } from "./matrizDispersa.js";
+import { MatrizDispersa } from "./matrizDispersa.js";
 
 export class nodoNario {
   constructor(value, id) {
@@ -6,19 +6,19 @@ export class nodoNario {
     this.value = value;
     this.first = null;
     this.id = id;
-    this.matrix = new SparseMatrix(value);
+    this.matrix = new MatrizDispersa(value);
   }
 }
 
-export class N_arioTree {
+export class arbol_Nario {
   constructor() {
-    this.raiz = new nodoNario("/", 0);
+    this.root = new nodoNario("/", 0);
     this.nodes_created = 1;
   }
 
-  searchDirectory(new_directory, directory_list) {
-    if (directory_list[1] === "" && this.raiz.first !== null) {
-      let aux = this.raiz.first;
+  buscarDirectorio(new_directory, directory_list) {
+    if (directory_list[1] === "" && this.root.first !== null) {
+      let aux = this.root.first;
       while (aux) {
         if (aux.value === new_directory) {
           return 1;
@@ -27,16 +27,15 @@ export class N_arioTree {
       }
       return 2;
     }
-    else if (directory_list[1] === "" && this.raiz.first === null) {
+    else if (directory_list[1] === "" && this.root.first === null) {
       return 5;
     }
 
-    else if (directory_list[1] === "" && this.raiz.first === null) {
+    else if (directory_list[1] === "" && this.root.first === null) {
       return 3;
     }
-
-    else if (directory_list[1] !== "" && this.raiz.first !== null) {
-      let aux = this.raiz.first;
+    else if (directory_list[1] !== "" && this.root.first !== null) {
+      let aux = this.root.first;
       let level = directory_list.length;
       let position = 1;
 
@@ -74,46 +73,44 @@ export class N_arioTree {
     }
   }
 
-  insertInOrder(raiz, nuevoNodo) {
-    let piv = raiz.first;
-    if (nuevoNodo.value < raiz.first.value) {
-      nuevoNodo.next = raiz.first;
-      raiz.first = nuevoNodo;
-      return raiz;
+  insertarInOrder(root, newNode) {
+    let piv = root.first;
+    if (newNode.value < root.first.value) {
+      newNode.next = root.first;
+      root.first = newNode;
+      return root;
     } else {
       while (piv.next) {
-        if (nuevoNodo.value > piv.value && nuevoNodo.value < piv.next.value) {
-          nuevoNodo.next = piv.next;
-          piv.next = nuevoNodo;
-          return raiz;
-        } else if (nuevoNodo.value < piv.value) {
-          nuevoNodo.next = piv;
-          piv = nuevoNodo;
-          return raiz;
+        if (newNode.value > piv.value && newNode.value < piv.next.value) {
+          newNode.next = piv.next;
+          piv.next = newNode;
+          return root;
+        } else if (newNode.value < piv.value) {
+          newNode.next = piv;
+          piv = newNode;
+          return root;
         } else {
           piv = piv.next;
         }
       }
-      piv.next = nuevoNodo;
-      return raiz;
+      piv.next = newNode;
+      return root;
     }
   }
 
-  insertChildren(new_directory, directory_list) {
-
-    const nuevoNodo = new nodoNario(new_directory, this.nodes_created);
+  insertarHijo(new_directory, directory_list) {
+    const newNode = new nodoNario(new_directory, this.nodes_created);
     this.nodes_created++;
 
-    if (directory_list[1] === "" && this.raiz.first === null) {
-      this.raiz.first = nuevoNodo;
+    if (directory_list[1] === "" && this.root.first === null) {
+      this.root.first = newNode;
     }
 
-    else if (directory_list[1] === "" && this.raiz.first !== null) {
-      this.raiz = this.insertInOrder(this.raiz, nuevoNodo);
+    else if (directory_list[1] === "" && this.root.first !== null) {
+      this.root = this.insertarInOrder(this.root, newNode);
     }
-
-    else if (directory_list[1] !== "" && this.raiz.first !== null) {
-      let aux = this.raiz.first;
+    else if (directory_list[1] !== "" && this.root.first !== null) {
+      let aux = this.root.first;
       let level = directory_list.length;
       let position = 1;
       for (var i = 1; i < level; i++) {
@@ -136,25 +133,24 @@ export class N_arioTree {
           break;
         }
       }
-
       if (aux.first === null) {
-        aux.first = nuevoNodo;
+        aux.first = newNode;
       } else {
-        aux = this.insertInOrder(aux, nuevoNodo);
+        aux = this.insertarInOrder(aux, newNode);
       }
     }
   }
 
   insertarValor(path, new_directory) {
     let directory_list = path.split("/");
-    let directory_exist = this.searchDirectory(new_directory, directory_list);
+    let directory_exist = this.buscarDirectorio(new_directory, directory_list);
     switch (directory_exist) {
       case 1:
         let copyDirectory = `Copia ${new_directory}`;
-        this.insertChildren(copyDirectory, directory_list);
+        this.insertarHijo(copyDirectory, directory_list);
         break;
       case 2:
-        this.insertChildren(new_directory, directory_list);
+        this.insertarHijo(new_directory, directory_list);
         break;
       case 3:
         alert("El directorio no es valido");
@@ -163,77 +159,77 @@ export class N_arioTree {
         alert("El directorio no es valido");
         break;
       case 5:
-        this.insertChildren(new_directory, directory_list);
+        this.insertarHijo(new_directory, directory_list);
         break;
     }
   }
 
-  graphTree() {
-    let graph = "";
-    if (this.raiz !== null) {
-      graph = "digraph G {";
-      graph += this.generateGraph(this.raiz);
-      graph += "}";
+  graficarArbol() {
+    let texto = "";
+    if (this.root !== null) {
+      texto = "digraph G {";
+      texto += this.generarGrafica(this.root);
+      texto += "}";
     } else {
-      graph = "digraph G { voidTree }";
+      texto = "digraph G { voidTree }";
     }
-    return graph;
+    return texto;
   }
 
-  generateGraph(raiz) {
-    let graph = "node[shape=record color=skyblue, fontcolor=white, style=filled]";
+  generarGrafica(root) {
+    let texto = "node[shape=record color=skyblue, fontcolor=white, style=filled]";
     let node = 1;
     let parent = 0;
-    graph += "nodo" + parent + '[label="' + this.raiz.value + '"] ';
-    graph += this.nextValues(this.raiz.first, node, parent);
-    graph += this.conections(this.raiz.first, 0);
-    return graph;
+    texto += "nodo" + parent + '[label="' + this.root.value + '"] ';
+    texto += this.valoresSiguientes(this.root.first, node, parent);
+    texto += this.conexiones(this.root.first, 0);
+    return texto;
   }
 
-  nextValues(raiz, node, parent) {
-    let graph = "";
-    let aux = raiz;
+  valoresSiguientes(root, node, parent) {
+    let texto = "";
+    let aux = root;
     let parent_plus = parent;
     if (aux !== null) {
       while (aux) {
-        graph += "nodo" + aux.id + '[label="' + aux.value + '"] ';
+        texto += "nodo" + aux.id + '[label="' + aux.value + '"] ';
         aux = aux.next;
       }
-      aux = raiz;
+      aux = root;
       while (aux) {
         parent_plus++;
-        graph += this.nextValues(aux.first, this.nodes_created, parent_plus);
+        texto += this.valoresSiguientes(aux.first, this.nodes_created, parent_plus);
         aux = aux.next;
       }
     }
-    return graph;
+    return texto;
   }
 
-  conections(raiz, parent) {
-    let graph = "";
-    let aux = raiz;
+  conexiones(root, parent) {
+    let texto = "";
+    let aux = root;
     if (aux !== null) {
       while (aux) {
-        graph += "nodo" + parent + " -> nodo" + aux.id + " ";
+        texto += "nodo" + parent + " -> nodo" + aux.id + " ";
         aux = aux.next;
       }
-      aux = raiz;
+      aux = root;
       while (aux) {
-        graph += this.conections(aux.first, aux.id);
+        texto += this.conexiones(aux.first, aux.id);
         aux = aux.next;
       }
     }
-    return graph;
+    return texto;
   }
   
-  deleteDirectory(path) {
+  eliminarDirectorio(path) {
     let directoryList = path.split("/");
     this.nodes_created--;
     if (directoryList.length === 2) {
-      if (this.raiz.first.value === directoryList[1]) {
-        this.raiz.first = this.raiz.first.next;
+      if (this.root.first.value === directoryList[1]) {
+        this.root.first = this.root.first.next;
       } else {
-        let aux = this.raiz.first;
+        let aux = this.root.first;
         while (aux.next !== null) {
           if (aux.next.value === directoryList[1]) {
             aux.next = aux.next.next;
@@ -245,17 +241,16 @@ export class N_arioTree {
       return;
     }
 
-    let nodeDirectory = this.searchDirectoryValue(directoryList);
-    let parentDirectory = this.searchDirectoryValue(
+    let nodeDirectory = this.buscarValorDirectorio(directoryList);
+    let parentDirectory = this.buscarValorDirectorio(
       directoryList.slice(0, directoryList.length - 1)
     );
 
-    if (nodeDirectory === this.raiz) {
-      this.raiz = null;
+    if (nodeDirectory === this.root) {
+      this.root = null;
     } else if (nodeDirectory === null) {
-      alert("Ingresa una ruta válida");
+      alert("La ruta no es válida");
     } else {
-
       let currentNode = parentDirectory.first;
       let prevNode = null;
       while (currentNode !== null) {
@@ -274,20 +269,19 @@ export class N_arioTree {
     }
   }
 
-  searchDirectoryValue(directory_list) {
-    if (directory_list[1] === "" && this.raiz.first !== null) {
-      return this.raiz;
+  buscarValorDirectorio(directory_list) {
+    if (directory_list[1] === "" && this.root.first !== null) {
+      return this.root;
     }
-    else if (directory_list[1] === "" && this.raiz.first === null) {
+    else if (directory_list[1] === "" && this.root.first === null) {
+      return null;
+    }
+    else if (directory_list[1] !== "" && this.root.first === null) {
       return null;
     }
 
-    else if (directory_list[1] !== "" && this.raiz.first === null) {
-      return null;
-    }
-
-    else if (directory_list[1] !== "" && this.raiz.first !== null) {
-      let aux = this.raiz.first;
+    else if (directory_list[1] !== "" && this.root.first !== null) {
+      let aux = this.root.first;
       let level = directory_list.length;
       let position = 1;
 
@@ -319,9 +313,9 @@ export class N_arioTree {
     }
   }
 
-  updateDirectory(path, new_directory) {
+  actualizarDirectorio(path, new_directory) {
     let directory_list = path.split("/");
-    let directory_exist = this.searchDirectoryValue(directory_list);
+    let directory_exist = this.buscarValorDirectorio(directory_list);
     if (directory_exist !== null) {
       directory_exist = new_directory;
     } else {
@@ -329,9 +323,9 @@ export class N_arioTree {
     }
   }
 
-  currentDirectory(path) {
+  DirectorioActual(path) {
     let directory_list = path.split("/");
-    let directory_exist = this.searchDirectoryValue(directory_list);
+    let directory_exist = this.buscarValorDirectorio(directory_list);
     if (directory_exist !== null) {
       return directory_exist;
     } else {
@@ -339,10 +333,10 @@ export class N_arioTree {
     }
   }
 
-  showDirectories(path) {
+  mostrarDirectorios(path) {
     const list_directories = [];
     let directory_list = path.split("/");
-    let directory_exist = this.searchDirectoryValue(directory_list);
+    let directory_exist = this.buscarValorDirectorio(directory_list);
     try {
       if (directory_exist !== null) {
         let aux = directory_exist.first;
