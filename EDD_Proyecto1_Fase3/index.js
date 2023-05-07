@@ -44,7 +44,7 @@ form.addEventListener("submit", (event) => {
             localStorage.setItem("currentUser", JSON.stringify(userFound.user));
             // Redirige a Estudiante
             window.location.href = "./EDD_Proyecto1_Fase3/Estudiante/Dashboard.html";
-            alert("Bienvenido Compañeros");
+            alert("Bienvenido Compañero");
           } else {
             alert("Contraseña incorrecta");
           }
